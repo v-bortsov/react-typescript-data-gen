@@ -1,15 +1,8 @@
 # GenerableTable - it's DataFacker Generator
 
 
-![formula](https://render.githubusercontent.com/render/math?math=\frac{n!}{k!(n - k)!} = \binom{n}{k} = {}^{n}C_{k} = C_{n}^k)
+![formula](https://render.githubusercontent.com/render/math?math=\color{red}%5CHuge%20\frac{n!}{k!(n%20-%20k)!}%20=%20\binom{n}{k}%20=%20{}^{n}C_{k}%20=%20C_{n}^k)
 
-![formula](https://render.githubusercontent.com/render/math?math=\sqrt[n]{ab})
-
-\begin{gathered} 
-\vec{a}^{m\! +\! 1} = \text{tansig} \left( \vec{W}^{m\! +\! 1}\! p + \vec{b}^{m\! +\! 1} \right) \quad \text{for}\; m = 0, 1, 2, ..., L-1\\
-\vec{a} = \vec{a}^{L}\\
-\vec{e} = t - a
-\end{gathered}
 
 1) combination column list
 2) permutation
