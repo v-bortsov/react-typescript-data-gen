@@ -1,7 +1,13 @@
-# Table DataFacker Generator
+# GenerableTable - it's DataFacker Generator
+
+
+[\frac{n!}{k!(n - k)!} = \binom{n}{k} = {}^{n}C_{k} = C_{n}^k](https://render.githubusercontent.com/render/math?math=)
 1) combination column list
 2) permutation
 2) customTypeColumn
+
+[Demo](http://digital-adept.com/generabletable)
+
 
 ## Getting Started
 ### `yarn start`
