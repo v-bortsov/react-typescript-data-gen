@@ -2,6 +2,8 @@
 
 
 ![formula](https://render.githubusercontent.com/render/math?math=\frac{n!}{k!(n - k)!} = \binom{n}{k} = {}^{n}C_{k} = C_{n}^k)
+
+![formula](https://render.githubusercontent.com/render/math?math=\sqrt[n]{ab})
 1) combination column list
 2) permutation
 2) customTypeColumn
