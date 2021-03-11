@@ -64,30 +64,23 @@ export const generatorSlice = createSlice({
       const parts = map(
         prop('template'), state.columns
       )
-      const result = parts.reduce((
-        a, b
-      ) => a.reduce(
-        (
-          r, v
-        ) => r.concat(b.map(w => [].concat(
-          v, w
-        ))), []
-      ))
-      const columnsName = pipe(
+      const result = parts.reduce(<any>xprod).map(<any>flatten)
+      const columnsName: any[] = pipe(
         map(prop('name')), flatten
       )(state.columns)
+
       state.rows = map(
-        zipObj(columnsName), result
+        <any>zipObj(columnsName), result
       )
     },
     changeColumn: (
-      state, action: PayloadAction<ColumnType>
+      state: any, action: PayloadAction<ColumnType>
     ) => {
-      state.columns = map(when(
+      state.columns = map(<any>when(
         propEq(
           'name', action.payload.name
-        ), mergeRight(
-          __, action.payload 
+        ), <any>mergeDeepRight(
+          __, action.payload
         )
       ))(state.columns)
     }
