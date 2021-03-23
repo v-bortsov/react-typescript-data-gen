@@ -1,21 +1,21 @@
-import React, { useRef } from 'react'
-import { Table, Space, Input, Button } from 'antd'
-import { ThunkDispatch } from 'redux-thunk'
-import { AnyAction } from 'redux'
-import { useSelector, useDispatch } from 'react-redux'
 import { AimOutlined, DeleteOutlined, SaveOutlined } from '@ant-design/icons'
+import { Button, Input, Space, Table } from 'antd'
+import { TextAreaRef } from 'antd/lib/input/TextArea'
+import { map, omit, pipe, props, zipObj } from 'ramda'
+import React, { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AnyAction } from 'redux'
+import { ThunkDispatch } from 'redux-thunk'
+import { RootState } from '../../app/store'
+import { renameKeys } from '../../utils/popular'
 import {
   changeColumn,
-  selectColumns,
+
   removeColumn,
-  run,
+  run, selectColumns,
+
   selectRows
 } from './generatorSlice'
-import { map, omit, pipe, props, zipObj } from 'ramda'
-import { renameKeys } from '../../utils'
-import { TextAreaRef } from 'antd/lib/input/TextArea'
-import { RootState } from '../../app/store'
-
 type AppDispatch = ThunkDispatch<RootState, any, AnyAction>; 
 const { TextArea } = Input
 
@@ -35,7 +35,7 @@ const transformColumns = (
       }
       return {
         ...omitColumns,
-        filterDropdown: (object: any) => (
+        filterDropdown: () => (
           <div style={ { padding: 8 } }>
             <TextArea
               onChange={ e => dispatch(changeColumn({ ...passObj, template: e.target.value.split('\n') })) }
@@ -47,7 +47,8 @@ const transformColumns = (
             />
             <Space>
               <Button
-                danger icon={ <DeleteOutlined /> }
+                danger
+                icon={ <DeleteOutlined /> }
                 onClick={ () => dispatch(removeColumn({ ...passObj })) }
                 size="small"
                 style={ { width: 90 } }
@@ -93,5 +94,8 @@ export function TableGen () {
     inputEl, dispatch
   )(columns)
   console.log(convert)  
-  return <Table columns={ convert } dataSource={ rows } />
+  return <Table
+    columns={ convert }
+    dataSource={ rows }
+         />
 }
