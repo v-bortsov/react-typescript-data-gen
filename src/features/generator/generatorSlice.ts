@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { append, filter, flatten, map, mergeRight, not, pipe, prop, propEq, when, zipObj, __ } from 'ramda'
+import { append, filter, flatten, map, mergeDeepRight, mergeRight, not, pipe, prop, propEq, when, xprod, zipObj, __ } from 'ramda'
 import { RootState } from '../../app/store'
 export type ColumnType = {
   name: string
