@@ -7,22 +7,33 @@ module.exports = {
   },
   'plugins': ['react'],
   extends: [
-    'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'standard',
     'plugin:react/recommended',
-    'plugin:react-hooks/recommended'
+    'plugin:react-hooks/recommended',
+    "eslint:recommended",
+    'plugin:@typescript-eslint/recommended',
+    "plugin:@typescript-eslint/eslint-recommended",
   ],
   parserOptions: {
     jsx: "react",
-    "ecmaVersion": 2015,
+    ecmaVersion: 6,
+    ecmaFeatures: {
+      "jsx": true,
+      "impliedStrict": true
+    },
+    sourceType: "module",
     useJSXTextNode: true,
     sourceType: "module",
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json']
   },
   rules: {
+    // "indent": ["error", 2, {"ignoredNodes": ["JSXElement"]}],
+    'no-undef': 'off',
+    // 'type-assertion-no-undef': 'error',
     // JSX
+    'react/jsx-indent': [2, 2, {indentLogicalExpressions: true, checkAttributes: true}],
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react/jsx-boolean-value': 'error',
@@ -32,28 +43,29 @@ module.exports = {
     'react/jsx-first-prop-new-line': 'error',
     'react/jsx-handler-names': 'error',
     'react/jsx-indent-props': ['error', 2],
-    'react/jsx-indent': ['error', 2],
     'react/jsx-key': 'error',
-    'react/jsx-max-props-per-line': ['error', { 'maximum': 3 }],
+    'react/jsx-max-props-per-line': ['error', { 'maximum': 1 }],
     'react/jsx-no-bind': 'off',
     'react/jsx-no-literals': 'off',
     'react/jsx-no-target-blank': 'error',
     'react/jsx-pascal-case': 'error',
     'react/jsx-sort-props': 'error',
     'react/jsx-space-before-closing': 'error',
-    "@typescript-eslint/no-unused-vars": "off",
-    'no-unused-vars': "warn",
+    'react/jsx-closing-tag-location': 'error',
+    'react/jsx-closing-bracket-location': 'error',
     // "@typescript-eslint/no-unused-vars-experimental": ["error", { variables: { ignoredNamesRegex: '^_React$' } }],
-    "no-use-before-define": "off",
-    "no-trailing-spaces": 'off',
+    "@typescript-eslint/no-unused-vars": ["warn"],
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
     "@typescript-eslint/no-use-before-define": ["error"],
+    '@typescript-eslint/no-floating-promises': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    '@typescript-eslint/no-floating-promises': 'off',
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
+    "no-trailing-spaces": 'off',
     // allow async-await
     'generator-star-spacing': 'off',
     'arrow-parens': 'off',
@@ -106,7 +118,7 @@ module.exports = {
   },
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx']
+      '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts']
     }
   }
 }

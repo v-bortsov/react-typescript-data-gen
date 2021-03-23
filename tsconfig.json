@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -20,9 +20,7 @@
     "noEmit": true,
     "jsx": "react",
   },
-  "include": [
-    "src"
-  ],
+  "include": ["/src/**/*.ts", "**/src/**/*.tsx", "**/src/**/*.ts", "**/__tests__/**/*.ts",  "/src/**/*.d.ts"],
   "watchOptions": {
     "watchFile": "useFsEvents",
     "watchDirectory": "useFsEvents",
