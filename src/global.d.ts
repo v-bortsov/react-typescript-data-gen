@@ -1,4 +1,4 @@
-/// <reference types="react-scripts" />
+
 type ColumnType = {
   name: string
   label?: string
@@ -6,6 +6,7 @@ type ColumnType = {
   startDate?: any
   endDate?: any
   template: string | string[]
+  days?: number[]
 }
 export enum DaysOfWeek {
   Sun = 0,

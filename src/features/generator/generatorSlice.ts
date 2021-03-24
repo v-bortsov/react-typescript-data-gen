@@ -1,17 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { append, filter, flatten, map, mergeRight, not, pipe, prop, propEq, when, zipObj, __ } from 'ramda'
+import { append, filter, flatten, is, map, not, path, pipe, prop, propEq, split, xprod, zipObj, __ } from 'ramda'
 import { RootState } from '../../app/store'
-export type ColumnType = {
-  name: string
-  label?: string
-  type?: string
-  template: string[]
-}
-
-interface GeneratorState {
-  columns: ColumnType[]
-  rows: any[]
-}
+import { ColumnType, DaysOfWeek, GeneratorState } from '../../react-app-env.d'
+import { transformDates } from '../../utils/dates'
+import { enumToObject, findAndMerge } from '../../utils/popular'
 
 const initialState: GeneratorState = {
   columns: [{
@@ -42,7 +34,35 @@ export const generatorSlice = createSlice({
   reducers: {
     createColumn: (
       state, action: PayloadAction<ColumnType>
-    ) => { 
+    ) => {
+      console.log(action.payload)
+      
+      if (is(
+        String, action.payload.templates
+      )) {
+        const template = path<any>(
+          ['payload', 'template'], action
+        )
+        action.payload.template = split(
+          '\n',
+          template
+        )
+      } else {
+        const dayAtNumber = enumToObject(DaysOfWeek)
+        action.payload.days = pipe<any, any, any>(
+          filter<any>(prop('active')),
+          map<any, any[]>(pipe<any, any, any>(
+            prop('abbr'), prop(
+              __, dayAtNumber
+            )
+          ))
+        )(action.payload.template)
+
+        action.payload.startDate = action.payload.startDate.format('DD.MM.YYYY')
+        console.log(action.payload.startDate)
+        
+        action.payload.template = transformDates(action.payload).template
+      }
       state.columns = append(
         action.payload, state.columns
       )
@@ -64,32 +84,30 @@ export const generatorSlice = createSlice({
       const parts = map(
         prop('template'), state.columns
       )
-      const result = parts.reduce((
-        a, b
-      ) => a.reduce(
-        (
-          r, v
-        ) => r.concat(b.map(w => [].concat(
-          v, w
-        ))), []
-      ))
-      const columnsName = pipe(
+      const result = parts.reduce(<any>xprod).map(<any>flatten)
+      // const result = parts.reduce((
+      //   a, b
+      // ) => a.reduce(
+      //   (
+      //     r, v
+      //   ) => r.concat(b.map(w => [].concat(
+      //     v, w
+      //   ))), []
+      // ))
+      const columnsName: any[] = pipe(
         map(prop('name')), flatten
       )(state.columns)
+
       state.rows = map(
-        zipObj(columnsName), result
+        <any>zipObj(columnsName), result
       )
     },
     changeColumn: (
-      state, action: PayloadAction<ColumnType>
+      state: any, action: PayloadAction<ColumnType>
     ) => {
-      state.columns = map(when(
-        propEq(
-          'name', action.payload.name
-        ), mergeRight(
-          __, action.payload 
-        )
-      ))(state.columns)
+      state.columns = findAndMerge(
+        state.columns, action.payload, 'name'
+      )
     }
   }
 })
