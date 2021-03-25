@@ -14,7 +14,8 @@ const ceilLimit = pipe(
 )
 
 export const addDaysToDate: any = curry((
-  currentDate: string, count: number, flag: Interval
+  currentDate: string,
+  count: number, flag: Interval
 ) => moment(
   currentDate, 'DD.MM.YYYY'
 ).add(
