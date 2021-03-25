@@ -42,7 +42,29 @@ export const dayToDate = pipe<string[], any, any, any>(
     )]
   )
 )
-export const transformDates = pipe<any, any, any, IDateOption>(
+export const transformDates = pipe<any, any, any, any, any>(
+  // transfer from dayOfWeek to addDay
+  chain(
+    assoc('template'), pipe<any, any, any, any>(
+      prop('template'),
+      aperture(2),
+      reduce(
+        (
+          acc: number[], curr: number[]
+        ) => { 
+          if (curr[1] < curr[0]) {
+            const calcL = (interval - curr[0]) + curr[1]
+            acc.push(calcL)
+          } else {
+            const calcG = curr[1] - curr[0]
+            acc.push(calcG)
+          }
+          return acc
+        }, []
+      ),
+      tap(console.log)
+    )
+  ),
   chain(
     assoc('template'), pipe(
       converge(
@@ -52,24 +74,6 @@ export const transformDates = pipe<any, any, any, IDateOption>(
     )
   ),
   // tap(console.log),
-  // pipe(
-  //   aperture(2),
-  //   tap(console.log),
-  //   reduce(
-  //     (
-  //       acc: number[], curr: number[]
-  //     ) => { 
-  //       if (curr[1] < curr[0]) {
-  //         const calcL = (interval - curr[0]) + curr[1]
-  //         acc.push(calcL)
-  //       } else {
-  //         const calcG = curr[1] - curr[0]
-  //         acc.push(calcG)
-  //       }
-  //       return acc
-  //     }, []
-  //   )
-  // ),
   chain(
     assoc('template'),
     converge(
@@ -91,6 +95,6 @@ export const transformDates = pipe<any, any, any, IDateOption>(
         )
       )]
     )
-  ),
-  tap(console.log)
+  )
+  // tap(console.log)
 )// (opt)
