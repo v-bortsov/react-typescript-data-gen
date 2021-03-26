@@ -61,7 +61,7 @@ export const generatorSlice = createSlice({
         action.payload.startDate = action.payload.startDate.format('DD.MM.YYYY')
         console.log(action.payload.startDate)
         
-        action.payload.template = transformDates(action.payload).template
+        action.payload.template = transformDates(action.payload).dates
       }
       state.columns = append(
         action.payload, state.columns

@@ -1,6 +1,6 @@
 import moment from 'moment'
-import { always, aperture, assoc, chain, clone, concat, converge, curry, divide, flatten, head, ifElse, is, last, length, multiply, negate, of, pair, pipe, prop, reduce, remove, repeat, slice, subtract, tap, __ } from 'ramda'
-import { IDateOption, Interval } from '../react-app-env'
+import { always, aperture, assoc, chain, clone, concat, converge, curry, divide, flatten, ifElse, is, last, length, of, pair, pipe, prop, reduce, repeat, when, __ } from 'ramda'
+import { Interval } from '../react-app-env'
 
 // const opt = { days: [1, 2, 3], lengthDays: 7, limit: 10, mode: 'week|range', startDate: '', endDate: '' }
 const interval = 7
@@ -25,47 +25,31 @@ export const addDaysToDate: any = curry((
 export const dayToDate = pipe<string[], any, any, any>(
   pair,
   converge(
-    concat, [pipe(ifElse(
-      pipe(
-        prop<any>(0), is(String)
-      ), pipe(
-        prop<any>(0), of
-      ), prop<any>(0)
-    )), pipe( 
+    concat, [pipe(
+      prop<any>(0), 
+      when(
+        is(String),
+        of
+      )
+    ), pipe( 
       converge(
         addDaysToDate(
           __, __, 'days'
-        ), [pipe(
-          prop(0), last
-        ), prop<any>(1)]
+        ), [
+          pipe(
+            prop<any>(0),
+            ifElse(
+              is(String), clone, last
+            )
+          ),
+          prop<any>(1)
+        ]
       ),
       of
     )]
   )
 )
-export const transformDates = pipe<any, any, any, any, any>(
-  // transfer from dayOfWeek to addDay
-  chain(
-    assoc('template'), pipe<any, any, any, any>(
-      prop('template'),
-      aperture(2),
-      reduce(
-        (
-          acc: number[], curr: number[]
-        ) => { 
-          if (curr[1] < curr[0]) {
-            const calcL = (interval - curr[0]) + curr[1]
-            acc.push(calcL)
-          } else {
-            const calcG = curr[1] - curr[0]
-            acc.push(calcG)
-          }
-          return acc
-        }, []
-      ),
-      tap(console.log)
-    )
-  ),
+export const transformDates = pipe<any, any, any, any>(
   chain(
     assoc('template'), pipe(
       converge(
@@ -74,28 +58,27 @@ export const transformDates = pipe<any, any, any, any, any>(
       flatten
     )
   ),
-  // tap(console.log),
+  // transfer from dayOfWeek to addDay
   chain(
-    assoc('template'),
-    converge(
-      slice, [always(0), pipe(
-        converge(
-          subtract, [converge(
-            multiply, [ceilLimit, countDays]
-          ), prop('limit')]
-        ), negate
-      ), clone]
+    assoc('template'), pipe<any, any, any, any>(
+      prop('template'),
+      aperture(2),
+      reduce(
+        (
+          acc: number[], curr: number[]
+        ) => {
+          acc.push(curr[1] < curr[0] ? ((interval - curr[0]) + curr[1]) : (curr[1] - curr[0]))
+          return acc
+        }, []
+      )
     )
   ),
   chain(
     assoc('dates'),
     converge(
-      reduce, [always(dayToDate), prop('startDate'), pipe(
-        prop('template'), remove(
-          0, 1
-        )
-      )]
+      reduce, [always(dayToDate), prop('startDate'),
+        prop('template')
+      ]
     )
   )
-  // tap(console.log)
 )// (opt)
