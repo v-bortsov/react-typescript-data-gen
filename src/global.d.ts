@@ -17,9 +17,16 @@ export enum DaysOfWeek {
   Fri = 5,
   Sat = 6
 }
+type Limiting = {
+  count: number
+  column: string
+
+}
+
 interface GeneratorState {
   columns: ColumnType[]
   rows: any[]
+  limit: (null | number | ColumnType.name)
 }
 interface IDateOption {
   days: number[]

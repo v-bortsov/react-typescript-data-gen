@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { append, filter, flatten, is, map, not, path, pipe, prop, propEq, split, xprod, zipObj, __ } from 'ramda'
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
+import { always, append, clone, complement, cond, converge, filter, flatten, is, isNil, length, map, not, of, path, pipe, pluck, prop, propEq, slice, split, tap, transpose, xprod, zipObj, __ } from 'ramda'
 import { RootState } from '../../app/store'
-import { ColumnType, DaysOfWeek, GeneratorState } from '../../react-app-env.d'
+import { ColumnType, DaysOfWeek, GeneratorState, Limiting } from '../../react-app-env.d'
 import { transformDates } from '../../utils/dates'
 import { enumToObject, findAndMerge } from '../../utils/popular'
 
@@ -25,7 +25,8 @@ const initialState: GeneratorState = {
     template: ['Baker', 'Health Educator', 'Budget Analyst', 'Design Engineer', 'Designer', 'Backend Developer']
   }
   ],
-  rows: []
+  rows: [],
+  limiting: null
 }
 
 export const generatorSlice = createSlice({
@@ -38,7 +39,7 @@ export const generatorSlice = createSlice({
       console.log(action.payload)
       
       if (is(
-        String, action.payload.templates
+        String, action.payload.template
       )) {
         const template = path<any>(
           ['payload', 'template'], action
@@ -59,7 +60,6 @@ export const generatorSlice = createSlice({
         )(action.payload.template)
 
         action.payload.startDate = action.payload.startDate.format('DD.MM.YYYY')
-        console.log(action.payload.startDate)
         
         action.payload.template = transformDates(action.payload).dates
       }
@@ -80,11 +80,58 @@ export const generatorSlice = createSlice({
         ), state.columns
       )
     },
+    setLimit: (
+      state, action: PayloadAction<Limiting>
+    ) => {
+      state.limiting = action.payload
+    },
     run: state => {
-      const parts = map(
-        prop('template'), state.columns
+      const { columns, limiting } = current(state)
+      const equalsName = propEq(
+        'name', limiting
       )
-      const result = parts.reduce(<any>xprod).map(<any>flatten)
+      console.log(columns)
+      const parts = pipe<any, any, any>(
+        tap(console.log),
+        filter(complement(equalsName)),
+        pluck('template')
+      )(columns)
+      console.log(
+        'parts', parts
+      )
+      
+      // cond([
+      //   [isNil],
+      //   [is(Number)],
+      //   [is(String)]
+      // ])
+      const multipled = parts.reduce(<any>xprod).map(<any>flatten)
+      console.log(
+        'multipled', multipled
+      )
+      
+      const result = is(
+        String, limiting
+      )
+        ? pipe(
+          filter(equalsName),
+          path([0, 'template']),
+          converge(
+            append, [
+              clone, pipe(
+                converge(
+                  slice(0), [
+                    length,
+                    always(multipled)
+                  ]
+                ), of
+              )
+            ]
+          ),
+          tap(console.log),
+          transpose
+        )(columns)
+        : multipled
       // const result = parts.reduce((
       //   a, b
       // ) => a.reduce(
@@ -94,12 +141,17 @@ export const generatorSlice = createSlice({
       //     v, w
       //   ))), []
       // ))
-      const columnsName: any[] = pipe(
-        map(prop('name')), flatten
-      )(state.columns)
-
+      // const columnsName: any[] = pipe(
+      //   map(prop('name')), flatten
+      // )(columns)
+      const columnsName = pluck(
+        'name', columns
+      )
       state.rows = map(
-        <any>zipObj(columnsName), result
+        pipe(
+          flatten,
+        <any>zipObj(columnsName)
+        ), result
       )
     },
     changeColumn: (
@@ -112,7 +164,7 @@ export const generatorSlice = createSlice({
   }
 })
 
-export const { createColumn, removeColumn, changeColumn, run } = generatorSlice.actions
+export const { createColumn, removeColumn, changeColumn, run, setLimit } = generatorSlice.actions
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -129,5 +181,6 @@ export const { createColumn, removeColumn, changeColumn, run } = generatorSlice.
 // in the slice file. For example: `useSelector((state: RootState) => state.countevalue)`
 export const selectColumns = (state: RootState) => state.generator.columns
 export const selectRows = (state: RootState) => state.generator.rows
+export const selectLimiting = (state: RootState) => state.generator.limiting
 
 export default generatorSlice.reducer

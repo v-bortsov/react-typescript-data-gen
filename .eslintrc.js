@@ -59,6 +59,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
     "@typescript-eslint/no-use-before-define": ["error"],
     '@typescript-eslint/no-floating-promises': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

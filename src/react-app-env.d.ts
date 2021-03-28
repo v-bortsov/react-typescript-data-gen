@@ -1,36 +1,39 @@
 /// <reference types="react-scripts" />
-type ColumnType = {
-  name: string
-  label?: string
-  type?: string
-  startDate?: any
-  endDate?: any
-  template: string | string[]
-}
+  type ColumnType = {
+    name: string
+    label?: string
+    type?: string
+    startDate?: any
+    endDate?: any
+    template: string | string[]
+    days?: number[]
+  }
 export enum DaysOfWeek {
-  Sun = 1,
-  Mon = 2,
-  Tue = 3,
-  Wed = 4,
-  Thu = 5,
-  Fri = 6,
-  Sat = 7 
-}
-interface GeneratorState {
-  columns: ColumnType[]
-  rows: any[]
-}
-interface IDateOption {
-  days: number[]
-  lengthDays: number
-  dates: string[]
-  limit: number
-  mode: 'week'|'range'
-  startDate: any
-  endDate: string
-}
+    Sun = 0,
+    Mon = 1,
+    Tue = 2,
+    Wed = 3,
+    Thu = 4,
+    Fri = 5,
+    Sat = 6
+  }
+  type Limiting = (null | number | ColumnType.name)
+  interface GeneratorState {
+    columns: ColumnType[]
+    rows: any[]
+    limiting: Limiting
+  }
+  interface IDateOption {
+    days: number[]
+    lengthDays: number
+    dates: string[]
+    limit: number
+    mode: 'week'|'range'
+    startDate: any
+    endDate: string
+  }
 export enum Interval {
-  days = 'days',
-  weeks = 'weeks',
-  hours = 'hours'
-}
+    days = 'days',
+    weeks = 'weeks',
+    hours = 'hours'
+  }

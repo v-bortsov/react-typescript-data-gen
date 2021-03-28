@@ -4,6 +4,7 @@ import { Button, Dropdown } from 'antd'
 import { DownOutlined, SettingFilled } from '@ant-design/icons'
 import { AddColumn } from './components/AddColumn'
 import 'antd/dist/antd.css' 
+import { RadioGroup } from './components/RadioGroup'
 
 function App () {
   return (
@@ -21,7 +22,7 @@ function App () {
           </a>
         </Dropdown>
         <Dropdown
-          overlay={ <AddColumn /> }
+          overlay={ <RadioGroup /> }
           placement="topRight"
           trigger={ ['click'] }
         >

@@ -10,10 +10,8 @@ import { RootState } from '../../app/store'
 import { renameKeys } from '../../utils/popular'
 import {
   changeColumn,
-
   removeColumn,
   run, selectColumns,
-
   selectRows
 } from './generatorSlice'
 type AppDispatch = ThunkDispatch<RootState, any, AnyAction>; 

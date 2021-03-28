@@ -5,12 +5,9 @@ import { findAndMerge } from '../utils/popular'
 export const WeekDays = ({ days, setDays }: any) => {
   const setDay = (day: any) => {
     day.active = !day.active
-    // console.log(day)
     const newDaysWeek = findAndMerge(
       days, day, 'abbr'
     )
-    // console.log(newDaysWeek)
-    
     setDays(newDaysWeek)
   }
   return (

@@ -25,7 +25,6 @@ export const AddColumn = () => {
   const dispatch = useDispatch()
   const [type, setType] = useState(null)
   const [days, setDays] = useState(daysOfWeek)
-  console.log(type)
   
   const onFinish = (values: any) => {
     if (values.type === 'Dates') {
