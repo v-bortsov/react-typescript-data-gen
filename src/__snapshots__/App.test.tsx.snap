@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="ant-card ant-card-bordered"
+  style={
+    Object {
+      "width": 400,
+    }
+  }
+>
+  <div
+    className="ant-card-head"
+    style={Object {}}
+  >
+    <div
+      className="ant-card-head-wrapper"
+    >
+      <div
+        className="ant-card-head-title"
+      >
+        Limiting
+      </div>
+    </div>
+  </div>
+  <div
+    className="ant-card-body"
+    style={Object {}}
+  >
+    <div
+      className="ant-radio-group ant-radio-group-outline"
+    >
+      <label
+        className="ant-radio-wrapper ant-radio-wrapper-checked"
+      >
+        <span
+          className="ant-radio ant-radio-checked"
+          style={Object {}}
+        >
+          <input
+            checked={true}
+            className="ant-radio-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyPress={[Function]}
+            onKeyUp={[Function]}
+            type="radio"
+            value="all"
+          />
+          <span
+            className="ant-radio-inner"
+          />
+        </span>
+        <span>
+          All
+        </span>
+      </label>
+      <label
+        className="ant-radio-wrapper"
+      >
+        <span
+          className="ant-radio"
+          style={Object {}}
+        >
+          <input
+            checked={false}
+            className="ant-radio-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyPress={[Function]}
+            onKeyUp={[Function]}
+            type="radio"
+            value="limit"
+          />
+          <span
+            className="ant-radio-inner"
+          />
+        </span>
+        <span>
+          First
+        </span>
+      </label>
+      <label
+        className="ant-radio-wrapper"
+      >
+        <span
+          className="ant-radio"
+          style={Object {}}
+        >
+          <input
+            checked={false}
+            className="ant-radio-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyPress={[Function]}
+            onKeyUp={[Function]}
+            type="radio"
+            value="column"
+          />
+          <span
+            className="ant-radio-inner"
+          />
+        </span>
+        <span>
+          By Column
+        </span>
+      </label>
+    </div>
+  </div>
+</div>
+`;

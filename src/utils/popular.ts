@@ -7,29 +7,42 @@ export const enumToObject: any = pipe<any, any, any, any>(
   values,
   converge(
     splitAt, [pipe(
-      filter(is(Number)),
+      filter(
+        is(
+          Number
+        )
+      ),
       <any>length
     ), clone]
   ),
   converge(
-    zipObj, [prop(0), prop(1)]
+    zipObj, [prop(
+      0
+    ), prop(
+      1
+    )]
   )
 )
-export const renameKeys: any = curry((
-  keysMap: ObjectLiteral, obj: ObjectLiteral
-) =>
-  reduce(
-    (
-      acc, key
-    ) => assoc(
-      keysMap[key] || key, obj[key], acc
-    ),
-    {},
-    keys(obj)
-  ))
+export const renameKeys: any = curry(
+  (
+    keysMap: ObjectLiteral, obj: ObjectLiteral
+  ) =>
+    reduce(
+      (
+        acc, key
+      ) => assoc(
+        keysMap[key] || key, obj[key], acc
+      ),
+      {},
+      keys(
+        obj
+      )
+    )
+)
 export const findAndMerge = (
   els: any[], element: any, propName: string
-) => map(<any>when(
+) => map(
+<any>when(
   propEq(
     propName, prop(
       propName, element
@@ -37,4 +50,7 @@ export const findAndMerge = (
   ), mergeRight(
     __, element
   )
-))(els)
+)
+)(
+  els
+)

@@ -31,6 +31,8 @@ module.exports = {
   rules: {
     // "indent": ["error", 2, {"ignoredNodes": ["JSXElement"]}],
     'no-undef': 'off',
+    
+
     // 'type-assertion-no-undef': 'error',
     // JSX
     'react/jsx-indent': [2, 2, {indentLogicalExpressions: true, checkAttributes: true}],
@@ -93,7 +95,7 @@ module.exports = {
         requireLast: false
       }
     }],
-    'function-paren-newline': ["error", { "minItems": 2 }],
+    'function-paren-newline': ["error", { "minItems": 1 }],
     'consistent-return': 'off',
     'linebreak-style': 'off',
     'no-restricted-globals': 'off',

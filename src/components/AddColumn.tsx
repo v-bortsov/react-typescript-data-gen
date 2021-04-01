@@ -23,23 +23,39 @@ const daysOfWeek = [
 export const AddColumn = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
-  const [type, setType] = useState(null)
-  const [days, setDays] = useState(daysOfWeek)
+  const [type, setType] = useState(
+    null
+  )
+  const [days, setDays] = useState(
+    daysOfWeek
+  )
   
-  const onFinish = (values: any) => {
+  const onFinish = (
+    values: any
+  ) => {
     if (values.type === 'Dates') {
       values.template = days
     }
     console.log(
       'Received values of form:', values
     )
-    dispatch(createColumn(values))
+    dispatch(
+      createColumn(
+        values
+      )
+    )
   }
 
   const handleChange = () => {
-    form.setFieldsValue({ sights: [] })
-    const type = form.getFieldValue('type')
-    setType(type)
+    form.setFieldsValue(
+      { sights: [] }
+    )
+    const type = form.getFieldValue(
+      'type'
+    )
+    setType(
+      type
+    )
   }
 
   return (

@@ -49,7 +49,7 @@ export function RadioGroup () {
         'column', group
       ) && 
         <Select
-          defaultValue="lucy"
+          defaultValue="All"
           onChange={ value => dispatch(setLimit(value)) }
           style={ { width: 120 } }
         >
