@@ -39,7 +39,7 @@ jobs:
       run: doctl registry login --expiry-seconds 1200
 
     - name: Push image to DigitalOcean Container Registry
-      run: docker push registry.digitalocean.com/sdas/python-example:$(echo $GITHUB_SHA | head -c7)
+      run: docker push registry.digitalocean.com/nevermind/react-typescript-data-gen:$(echo $GITHUB_SHA | head -c7)
 
     # Deploy to DigitalOCcean Kubernetes.
     - name: Update deployment file
