@@ -28,8 +28,8 @@ jobs:
       with:
         node-version: '14'
     # ESLint 7.x uses `} catch {` which isn't supported in Node 8
-    - run: npm run lint
-    - run: npm t
+    # - run: npm run lint
+    # - run: npm t
     # Only run the coverage once
     - name: Get Coverage for badge
       run: |
