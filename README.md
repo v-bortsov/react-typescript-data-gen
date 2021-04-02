@@ -1,6 +1,6 @@
 # GenerableTable - it's DataFacker Generator
 
-
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/vbortsov/a87e32a5efd1686be86c338fa404872a/raw/test.json)
 ![formula](https://render.githubusercontent.com/render/math?math=\color{red}%5CHuge%20\frac{n!}{k!(n%20-%20k)!}%20=%20\binom{n}{k}%20=%20{}^{n}C_{k}%20=%20C_{n}^k)
 
 
