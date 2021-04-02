@@ -1,6 +1,6 @@
 # GenerableTable - it's DataFacker Generator
 <!-- Change the ## to your pull request number -->
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/vbortsov/a87e32a5efd1686be86c338fa404872a/raw/react-typescript-data-gen__heads_master.json)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/v-bortsov/a87e32a5efd1686be86c338fa404872a/raw/react-typescript-data-gen__heads_master.json)
 
 <!-- ![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/vbortsov/a87e32a5efd1686be86c338fa404872a/raw/react-typescript-data-gen__heads_master.json) -->
 ![formula](https://render.githubusercontent.com/render/math?math=\color{red}%5CHuge%20\frac{n!}{k!(n%20-%20k)!}%20=%20\binom{n}{k}%20=%20{}^{n}C_{k}%20=%20C_{n}^k)
