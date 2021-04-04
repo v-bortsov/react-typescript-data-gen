@@ -5,16 +5,23 @@ import { transformColumns } from './ColumnFilters'
 import { selectColumns, selectRows } from './generatorSlice'
 
 export function TableGen () {
-  const rows = useSelector(selectRows)
-  // const columns = useSelector(selectColumns)
-  // const inputEl = useRef<HTMLInputElement | null>(null)
-  // const dispatch = useDispatch()
-  // const convert = transformColumns(
-  //   inputEl, dispatch
-  // )(columns)
-  // console.log(convert)  
+  const rows = useSelector(
+    selectRows
+  )
+  const columns = useSelector(
+    selectColumns
+  )
+  const inputEl = useRef<HTMLInputElement | null>(
+    null
+  )
+  const dispatch = useDispatch()
+  const convert = transformColumns(
+    inputEl, dispatch
+  )(
+    columns
+  )
   return <Table
-    // columns={ convert }
+    columns={ convert }
     dataSource={ rows }
          />
 }

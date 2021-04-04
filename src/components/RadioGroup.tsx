@@ -14,15 +14,35 @@ const options = [
   { label: 'By Column', value: 'column' }
 ]
 export function RadioGroup () {
-  const limit = useSelector(selectLimiting)
-  const columns = useSelector(selectColumns)
+  const limit = useSelector(
+    selectLimiting
+  )
+  const columns = useSelector(
+    selectColumns
+  )
   const dispatch = useDispatch()
-  const groupFromStore = cond([
-    [is(Number), always('limit')], 
-    [is(String), always('column')], 
-    [isNil, always('all')] 
-  ])(limit)
-  const [group, setGroup] = useState(groupFromStore)
+  const groupFromStore = cond(
+    [
+      [is(
+        Number
+      ), always(
+        'limit'
+      )], 
+      [is(
+        String
+      ), always(
+        'column'
+      )], 
+      [isNil, always(
+        'all'
+      )] 
+    ]
+  )(
+    limit
+  )
+  const [group, setGroup] = useState(
+    groupFromStore
+  )
   
   return (
     <Card
@@ -31,7 +51,17 @@ export function RadioGroup () {
       title="Limiting"
     >
       <Radio.Group
-        onChange={ e => { if (e.target.value === 'all') { dispatch(setLimit(null)) } setGroup(e.target.value) } }
+        onChange={ e => {
+          if (e.target.value === 'all') {
+            dispatch(
+              setLimit(
+                null
+              )
+            ) 
+          } setGroup(
+            e.target.value
+          ) 
+        } }
         options={ options }
         value={ group }
       />
@@ -42,7 +72,11 @@ export function RadioGroup () {
           defaultValue={ 3 }
           max={ 10 }
           min={ 1 }
-          onChange={ value => dispatch(setLimit(value)) }
+          onChange={ value => dispatch(
+            setLimit(
+              value
+            )
+          ) }
         />
       }
       {equals(
@@ -50,18 +84,24 @@ export function RadioGroup () {
       ) && 
         <Select
           defaultValue="All"
-          onChange={ value => dispatch(setLimit(value)) }
+          onChange={ value => dispatch(
+            setLimit(
+              value
+            )
+          ) }
           style={ { width: 120 } }
         >
-          {columns.map((
-            column: ColumnType, idx: number
-          ) => 
-            <Option
-              key={ idx }
-              value={ column.name }
-            >
-              {column.label}
-            </Option>)}
+          {columns.map(
+            (
+              column: ColumnType, idx: number
+            ) => 
+              <Option
+                key={ idx }
+                value={ column.name }
+              >
+                {column.label}
+              </Option>
+          )}
         </Select>
       }
     </Card>

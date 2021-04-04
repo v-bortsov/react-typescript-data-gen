@@ -37,7 +37,7 @@ kind: Service
 metadata:
   name: react-typescript-data-gen-service
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: "doctl-action.do-api.dev"
+    external-dns.alpha.kubernetes.io/hostname: "gen.digital-adept.com"
     service.beta.kubernetes.io/do-loadbalancer-certificate-id: "c52f48e5-985c-46be-8d16-385677804a88"
     service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
 spec:

@@ -5,30 +5,42 @@ import { Interval } from '../react-app-env'
 // const opt = { days: [1, 2, 3], lengthDays: 7, limit: 10, mode: 'week|range', startDate: '', endDate: '' }
 const interval = 7
 const countDays = pipe<any, number[], number>(
-  prop('days'), length
+  prop(
+    'days'
+  ), length
 )
 const ceilLimit = pipe(
   converge(
-    divide, [prop('limit'), countDays]
+    divide, [prop(
+      'limit'
+    ), countDays]
   ), Math.ceil
 )
 
-export const addDaysToDate: any = curry((
-  currentDate: string,
-  count: number, flag: Interval
-) => moment(
-  currentDate, 'DD.MM.YYYY'
-).add(
-  count, flag
+export const addDaysToDate: any = curry(
+  (
+    currentDate: string,
+    count: number, flag: Interval
+  ) => moment(
+    currentDate, 'DD.MM.YYYY'
+  ).add(
+    count, flag
+  )
+    .format(
+      'DD.MM.YYYY'
+    )
 )
-  .format('DD.MM.YYYY'))
 export const dayToDate = pipe<string[], any, any, any>(
   pair,
   converge(
     concat, [pipe(
-      prop<any>(0), 
+      prop<any>(
+        0
+      ), 
       when(
-        is(String),
+        is(
+          String
+        ),
         of
       )
     ), pipe( 
@@ -37,12 +49,18 @@ export const dayToDate = pipe<string[], any, any, any>(
           __, __, 'days'
         ), [
           pipe(
-            prop<any>(0),
+            prop<any>(
+              0
+            ),
             ifElse(
-              is(String), clone, last
+              is(
+                String
+              ), clone, last
             )
           ),
-          prop<any>(1)
+          prop<any>(
+            1
+          )
         ]
       ),
       of
@@ -51,33 +69,53 @@ export const dayToDate = pipe<string[], any, any, any>(
 )
 export const transformDates = pipe<any, any, any, any>(
   chain(
-    assoc('template'), pipe(
+    assoc(
+      'template'
+    ), pipe(
       converge(
-        repeat, [prop('days'), ceilLimit]
+        repeat, [prop(
+          'days'
+        ), ceilLimit]
       ),
       flatten
     )
   ),
   // transfer from dayOfWeek to addDay
   chain(
-    assoc('template'), pipe<any, any, any, any>(
-      prop('template'),
-      aperture(2),
+    assoc(
+      'template'
+    ), pipe<any, any, any, any>(
+      prop(
+        'template'
+      ),
+      aperture(
+        2
+      ),
       reduce(
         (
           acc: number[], curr: number[]
         ) => {
-          acc.push(curr[1] < curr[0] ? ((interval - curr[0]) + curr[1]) : (curr[1] - curr[0]))
+          acc.push(
+            curr[1] < curr[0] ? ((interval - curr[0]) + curr[1]) : (curr[1] - curr[0])
+          )
           return acc
         }, []
       )
     )
   ),
   chain(
-    assoc('dates'),
+    assoc(
+      'dates'
+    ),
     converge(
-      reduce, [always(dayToDate), prop('startDate'),
-        prop('template')
+      reduce, [always(
+        dayToDate
+      ), prop(
+        'startDate'
+      ),
+      prop(
+        'template'
+      )
       ]
     )
   )
