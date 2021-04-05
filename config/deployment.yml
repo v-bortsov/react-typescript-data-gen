@@ -29,8 +29,6 @@ spec:
             cpu: 100m
           limits:
             cpu: 100m
-      imagePullSecrets:
-      - name: asb
 ---
 apiVersion: v1
 kind: Service
@@ -38,6 +36,8 @@ metadata:
   name: react-typescript-data-gen
   annotations:
     external-dns.alpha.kubernetes.io/hostname: gen.digital-adept.com
+    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "c52f48e5-985c-46be-8d16-385677804a88"
+    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
 spec:
   type: LoadBalancer
   ports:
@@ -45,3 +45,5 @@ spec:
       targetPort: 3000
   selector:
     app: react-typescript-data-gen
+  imagePullSecrets:
+    - name: asb
