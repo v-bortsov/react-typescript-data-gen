@@ -45,5 +45,3 @@ spec:
       targetPort: 3000
   selector:
     app: react-typescript-data-gen
-  imagePullSecrets:
-    - name: asb
