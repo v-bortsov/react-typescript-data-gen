@@ -34,18 +34,14 @@ spec:
 ---
 apiVersion: v1
 kind: Service
+type: LoadBalancer
 metadata:
-  name: react-typescript-data-gen-service
+  name: react-typescript-data-gen
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: "gen.digital-adept.com"
-    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "c52f48e5-985c-46be-8d16-385677804a88"
-    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
+    external-dns.alpha.kubernetes.io/hostname: gen.digital-adept.com
 spec:
-  type: LoadBalancer
   ports:
-    - name: https
-      protocol: TCP
-      port: 443
+    - port: 80
       targetPort: 3000
   selector:
     app: react-typescript-data-gen
