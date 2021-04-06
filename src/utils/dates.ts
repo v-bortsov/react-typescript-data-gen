@@ -1,6 +1,7 @@
 import moment from 'moment'
-import { always, aperture, assoc, chain, clone, concat, converge, curry, divide, flatten, ifElse, is, last, length, of, pair, pipe, prop, reduce, repeat, when, __ } from 'ramda'
-import { Interval } from '../react-app-env'
+import { always, aperture, assoc, chain, clone, concat, converge, curry, divide, filter, flatten, ifElse, is, last, length, map, of, pair, pipe, prop, reduce, repeat, when, __ } from 'ramda'
+import { DaysOfWeek, Interval } from '../react-app-env.d'
+import { addParam, enumToObject } from './popular'
 
 // const opt = { days: [1, 2, 3], lengthDays: 7, limit: 10, mode: 'week|range', startDate: '', endDate: '' }
 const interval = 7
@@ -16,7 +17,25 @@ const ceilLimit = pipe(
     ), countDays]
   ), Math.ceil
 )
-
+const dayAtNumber = enumToObject(
+  DaysOfWeek
+)
+export const filterAndPropDayNumber = pipe<any, any, any>(
+  filter<any>(
+    prop(
+      'active'
+    )
+  ),
+  map<any, any[]>(
+    pipe<any, any, any>(
+      prop(
+        'abbr'
+      ), prop(
+        __, dayAtNumber
+      )
+    )
+  )
+)
 export const addDaysToDate: any = curry(
   (
     currentDate: string,
@@ -67,7 +86,7 @@ export const dayToDate = pipe<string[], any, any, any>(
     )]
   )
 )
-export const transformDates = pipe<any, any, any, any>(
+export const transformDates = pipe<any, any, any, any, any>(
   chain(
     assoc(
       'template'
@@ -118,5 +137,27 @@ export const transformDates = pipe<any, any, any, any>(
       )
       ]
     )
+  ),
+  prop(
+    'dates'
   )
 )// (opt)
+export const dayOfWeekToDate = pipe<any, any, any>(
+  addParam(
+    'days', filterAndPropDayNumber, [prop(
+      'template'
+    )]
+  ),
+  addParam(
+    'startDate', (
+      date: any
+    ) => date.format(
+      'DD.MM.YYYY'
+    ), [prop(
+      'startDate'
+    )]
+  ),
+  addParam(
+    'template', transformDates, [clone]
+  )
+)

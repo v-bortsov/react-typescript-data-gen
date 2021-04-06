@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction, current } from '@reduxjs/toolkit'
-import { always, append, clone, complement, cond, converge, filter, flatten, is, isNil, length, map, not, of, path, pipe, pluck, prop, propEq, slice, split, tap, transpose, xprod, zipObj, __ } from 'ramda'
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
+import { append, clone, filter, ifElse, is, not, pipe, Placeholder, prop, propEq, split, __ } from 'ramda'
 import { RootState } from '../../app/store'
-import { ColumnType, DaysOfWeek, GeneratorState, Limiting } from '../../react-app-env.d'
-import { transformDates } from '../../utils/dates'
-import { enumToObject, findAndMerge } from '../../utils/popular'
+import { ColumnType, GeneratorState, TypeLimiting } from '../../react-app-env.d'
+import { dayOfWeekToDate } from '../../utils/dates'
+import { addParam, cartesianCondition, findAndMerge } from '../../utils/popular'
 
-const initialState: GeneratorState = {
+export const initialState: GeneratorState = {
   columns: [{
     name: 'city',
     label: 'City',
@@ -37,49 +37,35 @@ export const generatorSlice = createSlice(
       createColumn: (
         state, action: PayloadAction<ColumnType>
       ) => {
-        if (is(
-          String, action.payload.template
-        )) {
-          const template = path<any>(
-            ['payload', 'template'], action
-          )
-          action.payload.template = split(
-            '\n',
-            template
-          )
-        } else {
-          const dayAtNumber = enumToObject(
-            DaysOfWeek
-          )
-          action.payload.days = pipe<any, any, any>(
-            filter<any>(
+        state.columns = pipe<any, any, any>(
+          ifElse(
+            pipe(
               prop(
-                'active'
+                'template'
+              ),
+              is(
+                String
               )
             ),
-            map<any, any[]>(
-              pipe<any, any, any>(
-                prop(
-                  'abbr'
-                ), prop(
-                  __, dayAtNumber
+            addParam(
+              'template',
+              pipe(
+                prop<any, any>(
+                  'template'
+                ),
+                split(
+                  '\n'
                 )
-              )
-            )
-          )(
-            action.payload.template
+              ),
+              [clone]
+            ),
+            dayOfWeekToDate
+          ),
+          append<any, any, any[]>(
+            __, state.columns
           )
-
-          action.payload.startDate = action.payload.startDate.format(
-            'DD.MM.YYYY'
-          )
-        
-          action.payload.template = transformDates(
-            action.payload
-          ).dates
-        }
-        state.columns = append(
-          action.payload, state.columns
+        )(
+          action.payload
         )
       },
       removeColumn: (
@@ -96,7 +82,7 @@ export const generatorSlice = createSlice(
         )
       },
       setLimit: (
-        state, action: PayloadAction<Limiting>
+        state, action: PayloadAction<TypeLimiting>
       ) => {
         state.limiting = action.payload
       },
@@ -104,98 +90,9 @@ export const generatorSlice = createSlice(
         const { columns, limiting } = current(
           state
         )
-        const equalsName = propEq(
-          'name', limiting
-        )
-        console.log(
-          columns
-        )
-        const parts = pipe<any, any, any>(
-          filter(
-            complement(
-              equalsName
-            )
-          ),
-          pluck(
-            'template'
-          )
-        )(
-          columns
-        )
-        console.log(
-          'parts', parts
-        )
-      
-        // cond([
-        //   [isNil],
-        //   [is(Number)],
-        //   [is(String)]
-        // ])
-        const multipled = parts.reduce(
-<any>xprod
-        ).map(
-<any>flatten
-        )
-        console.log(
-          'multipled', multipled
-        )
-      
-        const result = is(
-          String, limiting
-        )
-          ? pipe(
-            filter(
-              equalsName
-            ),
-            path(
-              [0, 'template']
-            ),
-            converge(
-              append, [
-                clone, pipe(
-                  converge(
-                    slice(
-                      0
-                    ), [
-                      length,
-                      always(
-                        multipled
-                      )
-                    ]
-                  ), of
-                )
-              ]
-            ),
-            tap(
-              console.log
-            ),
-            transpose
-          )(
-            columns
-          )
-          : multipled
-        // const result = parts.reduce((
-        //   a, b
-        // ) => a.reduce(
-        //   (
-        //     r, v
-        //   ) => r.concat(b.map(w => [].concat(
-        //     v, w
-        //   ))), []
-        // ))
-        // const columnsName: any[] = pipe(
-        //   map(prop('name')), flatten
-        // )(columns)
-        const columnsName = pluck(
-          'name', columns
-        )
-        state.rows = map(
-          pipe(
-            flatten,
-        <any>zipObj(
-          columnsName
-        )
-          ), result
+        
+        state.rows = cartesianCondition(
+          columns, limiting
         )
       },
       changeColumn: (

@@ -1,4 +1,5 @@
 /// <reference types="react-scripts" />
+type AppDispatch = ThunkDispatch<RootState, any, AnyAction>; 
   type ColumnType = {
     name: string
     label?: string
@@ -17,11 +18,11 @@ export enum DaysOfWeek {
     Fri = 5,
     Sat = 6
   }
-  type Limiting = (null | number | ColumnType.name)
+  type TypeLimiting = (null | number | ColumnType.name)
   interface GeneratorState {
     columns: ColumnType[]
     rows: any[]
-    limiting: Limiting
+    limiting: TypeLimiting
   }
   interface IDateOption {
     days: number[]

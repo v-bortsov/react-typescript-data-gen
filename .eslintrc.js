@@ -36,6 +36,7 @@ module.exports = {
     // 'type-assertion-no-undef': 'error',
     // JSX
     'react/jsx-indent': [2, 2, {indentLogicalExpressions: true, checkAttributes: true}],
+    
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react/jsx-boolean-value': 'error',
@@ -55,6 +56,7 @@ module.exports = {
     'react/jsx-space-before-closing': 'error',
     'react/jsx-closing-tag-location': 'error',
     'react/jsx-closing-bracket-location': 'error',
+    // 'react/jsx-wrap-multilines': ['error', { declaration: "parens-new-line", assignment: "parens" }],
     // "@typescript-eslint/no-unused-vars-experimental": ["error", { variables: { ignoredNamesRegex: '^_React$' } }],
     "@typescript-eslint/no-unused-vars": ["warn"],
     '@typescript-eslint/no-unsafe-assignment': 'off',

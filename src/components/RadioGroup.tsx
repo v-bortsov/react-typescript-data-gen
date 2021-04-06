@@ -1,5 +1,5 @@
 import { Card, InputNumber, Radio, Select } from 'antd'
-import { always, cond, equals, is, isNil, map } from 'ramda'
+import { always, cond, equals, is, isNil } from 'ramda'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectColumns, selectLimiting, setLimit } from '../features/generator/generatorSlice'
@@ -13,6 +13,23 @@ const options = [
   { label: 'First', value: 'limit' },
   { label: 'By Column', value: 'column' }
 ]
+export const spotGroupType = cond(
+  [
+    [is(
+      Number
+    ), always(
+      'limit'
+    )], 
+    [is(
+      String
+    ), always(
+      'column'
+    )], 
+    [isNil, always(
+      'all'
+    )] 
+  ]
+)
 export function RadioGroup () {
   const limit = useSelector(
     selectLimiting
@@ -21,27 +38,11 @@ export function RadioGroup () {
     selectColumns
   )
   const dispatch = useDispatch()
-  const groupFromStore = cond(
-    [
-      [is(
-        Number
-      ), always(
-        'limit'
-      )], 
-      [is(
-        String
-      ), always(
-        'column'
-      )], 
-      [isNil, always(
-        'all'
-      )] 
-    ]
-  )(
-    limit
-  )
+  
   const [group, setGroup] = useState(
-    groupFromStore
+    spotGroupType(
+      limit
+    )
   )
   
   return (
