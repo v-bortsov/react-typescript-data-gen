@@ -40,7 +40,8 @@ it(
       getByText(
         /Add Column/i
       )
-    ).toBeInTheDocument()
+    )
+      .toBeInTheDocument()
   }
 )
 it(
@@ -54,6 +55,7 @@ it(
       .toJSON()
     expect(
       tree
-    ).toMatchSnapshot()
+    )
+      .toMatchSnapshot()
   }
 )

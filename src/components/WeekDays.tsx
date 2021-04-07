@@ -19,22 +19,22 @@ export const WeekDays = (
   return (
     <>
       {
-      days.map(
-        (
-          day: any, idx: number
-        ) => 
-          <Button
-            key={ idx }
-            onClick={ () => setDay(
-              day
-            ) }
-            shape="circle"
-            type={ day.active ? 'dashed' : 'primary' }
-          >
-            {day.abbr}
-          </Button>
-      )
-    }
+        days.map(
+          (
+            day: any, idx: number
+          ) => 
+            <Button
+              key={ idx }
+              onClick={ () => setDay(
+                day
+              ) }
+              shape="circle"
+              type={ day.active ? 'dashed' : 'primary' }
+            >
+              {day.abbr}
+            </Button>
+        )
+      }
     </>
   )
 }

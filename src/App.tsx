@@ -12,7 +12,7 @@ function App () {
       <header className="App-header">
         <Dropdown
           overlay={ <AddColumn /> }
-          trigger={ ['click'] }
+          trigger={ [ 'click' ] }
         >
           <a
             className="ant-dropdown-link"
@@ -24,7 +24,7 @@ function App () {
         <Dropdown
           overlay={ <RadioGroup /> }
           placement="topRight"
-          trigger={ ['click'] }
+          trigger={ [ 'click' ] }
         >
           <Button
             icon={ <SettingFilled /> }

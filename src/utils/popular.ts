@@ -8,9 +8,10 @@ export const multipledParts: any = (
   parts: any[][]
 ) => parts.reduce(
   <any>xprod
-).map(
-  <any>flatten
 )
+  .map(
+  <any>flatten
+  )
 export const sliceAndTranspose = curry(
   (
     columns: ColumnType[], multipled: any[], equalsName: any
@@ -19,7 +20,9 @@ export const sliceAndTranspose = curry(
       equalsName
     ),
     path(
-      [0, 'template']
+      [
+        0, 'template'
+      ]
     ),
     converge(
       append, [
@@ -74,58 +77,62 @@ export const propFilterAndPluck = (
 )
 export const cartesianCondition: any = (
   columns: ColumnType[], limiting: TypeLimiting
-) => {
-  return pipe<any, any, any, any, any>(
-    propFilterAndPluck(
-      'name', limiting, 'template'
-    ),
-    multipledParts,
-    when(
-      always(
-        is(
-          String, limiting
-        )
-      ),
-      sliceAndTranspose(
-        columns, __, propEq(
-          'name', limiting
-        )
+) => pipe<any, any, any, any, any>(
+  propFilterAndPluck(
+    'name', limiting, 'template'
+  ),
+  multipledParts,
+  when(
+    always(
+      is(
+        String, limiting
       )
     ),
-    map(
-      pipe<any, any, any>(
-        flatten,
-        converge(
-          zipObj, [always(
+    sliceAndTranspose(
+      columns, __, propEq(
+        'name', limiting
+      )
+    )
+  ),
+  map(
+    pipe<any, any, any>(
+      flatten,
+      converge(
+        zipObj, [
+          always(
             pluck(
               'name', columns
             )
-          ), clone]
-        )
+          ), clone
+        ]
       )
     )
-  )(
-    columns
   )
-}
+)(
+  columns
+)
 export const enumToObject: any = pipe<any, any, any, any>(
   values,
   converge(
-    splitAt, [pipe<any, any, any>(
-      filter(
-        is(
-          Number
-        )
-      ),
-      length
-    ), clone]
+    splitAt, [
+      pipe<any, any, any>(
+        filter(
+          is(
+            Number
+          )
+        ),
+        length
+      ), clone
+    ]
   ),
   converge(
-    zipObj, [prop<any>(
-      0
-    ), prop<any>(
-      1
-    )]
+    zipObj, [
+      prop<any>(
+        0
+      ), prop<any>(
+        1
+      )
+    ]
   )
 )
 export const renameKeys: any = curry(

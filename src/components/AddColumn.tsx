@@ -21,12 +21,16 @@ const daysOfWeek = [
   { label: 'Saturday', abbr: 'Sat', active: false }
 ]
 export const AddColumn = () => {
-  const [form] = Form.useForm()
+  const [ form ] = Form.useForm()
   const dispatch = useDispatch()
-  const [type, setType] = useState(
+  const [
+    type, setType
+  ] = useState(
     null
   )
-  const [days, setDays] = useState(
+  const [
+    days, setDays
+  ] = useState(
     daysOfWeek
   )
   
@@ -73,7 +77,7 @@ export const AddColumn = () => {
         <Form.Item
           label="Type"
           name="type"
-          rules={ [{ required: true, message: 'Missing type' }] }
+          rules={ [ { required: true, message: 'Missing type' } ] }
         >
           <Select
             onChange={ handleChange }
@@ -83,14 +87,14 @@ export const AddColumn = () => {
         <Form.Item
           label="Name"
           name='name'
-          rules={ [{ required: true }] }
+          rules={ [ { required: true } ] }
         >
           <Input />
         </Form.Item>
         <Form.Item
           label="Lable"
           name='label'
-          rules={ [{ required: true }] }
+          rules={ [ { required: true } ] }
         >
           <Input />
         </Form.Item>
@@ -102,16 +106,16 @@ export const AddColumn = () => {
             type === 'Dates'
               ? <WeekDays { ...{ days, setDays } } />
               : <TextArea
-                  placeholder={ 'Pass Keywords ' }
-                  rows={ 4 }
-                />
+                placeholder={ 'Pass Keywords ' }
+                rows={ 4 }
+              />
           }
 
         </Form.Item>
         <Form.Item
           label="Limit"
           name='limit'
-          rules={ [{ required: true }] }
+          rules={ [ { required: true } ] }
         >
           <InputNumber />
           

@@ -109,11 +109,12 @@ function checkValidServiceWorker (
         // No service worker found. Probably a different app. Reload the page.
           navigator.serviceWorker.ready.then(
             registration => {
-              registration.unregister().then(
-                () => {
-                  window.location.reload()
-                }
-              )
+              registration.unregister()
+                .then(
+                  () => {
+                    window.location.reload()
+                  }
+                )
             }
           )
         } else {

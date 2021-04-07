@@ -6,24 +6,31 @@ import { dayOfWeekToDate } from '../../utils/dates'
 import { addParam, cartesianCondition, findAndMerge } from '../../utils/popular'
 
 export const initialState: GeneratorState = {
-  columns: [{
-    name: 'city',
-    label: 'City',
-    type: 'sequence',
-    template: ['Moscow', 'London', 'Jerusalem']
-  },
-  {
-    name: 'product',
-    label: 'Product',
-    type: 'sequence',
-    template: ['Socks', 'T-Shirt', 'Coat', 'Jeans', 'Trousers', 'Sneakers']
-  },
-  {
-    name: 'Skill',
-    label: 'Job Skill',
-    type: 'sequence',
-    template: ['Baker', 'Health Educator', 'Budget Analyst', 'Design Engineer', 'Designer', 'Backend Developer']
-  }
+  columns: [
+    {
+      name: 'city',
+      label: 'City',
+      type: 'sequence',
+      template: [
+        'Moscow', 'London', 'Jerusalem'
+      ]
+    },
+    {
+      name: 'product',
+      label: 'Product',
+      type: 'sequence',
+      template: [
+        'Socks', 'T-Shirt', 'Coat', 'Jeans', 'Trousers', 'Sneakers'
+      ]
+    },
+    {
+      name: 'Skill',
+      label: 'Job Skill',
+      type: 'sequence',
+      template: [
+        'Baker', 'Health Educator', 'Budget Analyst', 'Design Engineer', 'Designer', 'Backend Developer'
+      ]
+    }
   ],
   rows: [],
   limiting: null
@@ -57,7 +64,7 @@ export const generatorSlice = createSlice(
                   '\n'
                 )
               ),
-              [clone]
+              [ clone ]
             ),
             dayOfWeekToDate
           ),

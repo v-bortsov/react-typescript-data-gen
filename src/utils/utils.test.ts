@@ -6,13 +6,10 @@ import moment from 'moment'
 import { dayOfWeekToDate } from './dates'
 
 it(
-  'enumToObject', () => {
-    expect(
-      enumToObject(
-        DaysOfWeek
-      )
-    ).toEqual(
-      {
+  'enumToObject',
+  () => {
+    expect(enumToObject(DaysOfWeek))
+      .toEqual({
         Sun: 0,
         Mon: 1,
         Tue: 2,
@@ -20,79 +17,139 @@ it(
         Thu: 4,
         Fri: 5,
         Sat: 6
-      }
-    )
+      })
   }
 )
 it(
-  'findAndMerge', () => {
-    expect(
-      findAndMerge(
-        [{ test: 'a' }, { test: 'b' }, { test: 'c' }], { test: 'c', prop: 'add' }, 'test'
-      )
-    ).toEqual(
-      [{ test: 'a' }, { test: 'b' }, { test: 'c', prop: 'add' }]
-    )
+  'findAndMerge',
+  () => {
+    expect(findAndMerge(
+      [ 
+        { test: 'a' }, { test: 'b' }, { test: 'c' } 
+      ],
+      { test: 'c', prop: 'add' },
+      'test'
+    ))
+      .toEqual([ 
+        { test: 'a' }, { test: 'b' }, { test: 'c', prop: 'add' } 
+      ])
   }
 )
 it(
-  'multipledParts', () => {
-    expect(
-      multipledParts(
-        [['a', 'b', 'c'], ['d', 'e'], ['f', 'g']]
-      )
-    ).toEqual(
-      [
-        ['a', 'd', 'f'],
-        ['a', 'd', 'g'],
-        ['a', 'e', 'f'],
-        ['a', 'e', 'g'],
-        ['b', 'd', 'f'],
-        ['b', 'd', 'g'],
-        ['b', 'e', 'f'],
-        ['b', 'e', 'g'],
-        ['c', 'd', 'f'],
-        ['c', 'd', 'g'],
-        ['c', 'e', 'f'],
-        ['c', 'e', 'g']
-      ]
-    )
+  'multipledParts',
+  () => {
+    expect(multipledParts([ 
+      [ 
+        'a', 'b', 'c' 
+      ], [ 
+        'd', 'e' 
+      ], [ 
+        'f', 'g' 
+      ] 
+    ]))
+      .toEqual([
+        [ 
+          'a', 'd', 'f' 
+        ],
+        [ 
+          'a', 'd', 'g' 
+        ],
+        [ 
+          'a', 'e', 'f' 
+        ],
+        [ 
+          'a', 'e', 'g' 
+        ],
+        [ 
+          'b', 'd', 'f' 
+        ],
+        [ 
+          'b', 'd', 'g' 
+        ],
+        [ 
+          'b', 'e', 'f' 
+        ],
+        [ 
+          'b', 'e', 'g' 
+        ],
+        [ 
+          'c', 'd', 'f' 
+        ],
+        [ 
+          'c', 'd', 'g' 
+        ],
+        [ 
+          'c', 'e', 'f' 
+        ],
+        [ 
+          'c', 'e', 'g' 
+        ]
+      ])
   }
 )
 it(
-  'propFilterAndPluck', () => {
-    expect(
-      propFilterAndPluck(
-        'name', 'city', 'template'
-      )(
-        initialState.columns
-      )
-    ).toEqual(
-      [['Socks', 'T-Shirt', 'Coat', 'Jeans', 'Trousers', 'Sneakers'], ['Baker', 'Health Educator', 'Budget Analyst', 'Design Engineer', 'Designer', 'Backend Developer']]
-    )
+  'propFilterAndPluck',
+  () => {
+    expect(propFilterAndPluck(
+      'name',
+      'city',
+      'template'
+    )(initialState.columns))
+      .toEqual([ 
+        [ 
+          'Socks', 'T-Shirt', 'Coat', 'Jeans', 'Trousers', 'Sneakers' 
+        ], [ 
+          'Baker', 'Health Educator', 'Budget Analyst', 'Design Engineer', 'Designer', 'Backend Developer' 
+        ] 
+      ])
   }
 )
 it(
-  'sliceAndTranspose', () => {
-    expect(
-      sliceAndTranspose(
-        initialState.columns, ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'], propEq(
-          'name', 'Skill'
-        )
+  'sliceAndTranspose',
+  () => {
+    expect(sliceAndTranspose(
+      initialState.columns,
+      [ 
+        'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth' 
+      ],
+      propEq(
+        'name',
+        'Skill'
       )
-    ).toEqual(
-      [['first', 'Baker'], ['second', 'Health Educator'], ['third', 'Budget Analyst'], ['fourth', 'Design Engineer'], ['fifth', 'Designer'], ['sixth', 'Backend Developer']]
-    )
+    ))
+      .toEqual([ 
+        [ 
+          'first', 'Baker' 
+        ], [ 
+          'second', 'Health Educator' 
+        ], [ 
+          'third', 'Budget Analyst' 
+        ], [ 
+          'fourth', 'Design Engineer' 
+        ], [ 
+          'fifth', 'Designer' 
+        ], [ 
+          'sixth', 'Backend Developer' 
+        ] 
+      ])
   }
 )
 it(
-  'cartesianCondition', () => {
-    expect(
-      cartesianCondition(
-        [{ name: 'x', template: ['a', 'b', 'c'] }, { name: 'y', template: ['d', 'e'] }, { name: 'z', template: ['f', 'g'] }], null
-      )
-    ).toEqual(
-      [
+  'cartesianCondition',
+  () => {
+    expect(cartesianCondition(
+      [ 
+        { name: 'x', template: [ 
+          'a', 'b', 'c' 
+        ] }, { name: 'y', template: [ 
+          'd', 'e' 
+        ] }, { name: 'z', template: [ 
+          'f', 'g' 
+        ] } 
+      ],
+      null
+    ))
+      .toEqual([
         { x: 'a', y: 'd', z: 'f' },
         { x: 'a', y: 'd', z: 'g' },
         { x: 'a', y: 'e', z: 'f' },
@@ -105,54 +162,47 @@ it(
         { x: 'c', y: 'd', z: 'g' },
         { x: 'c', y: 'e', z: 'f' },
         { x: 'c', y: 'e', z: 'g' }
-      ]
-    )
+      ])
   }
 )
 it(
-  'addParam', () => {
-    expect(
-      addParam(
-        'name', add, [always(
-          1
-        ), always(
-          1
-        )]
-      )(
-        { pizza: 'formadgo' }
-      )
-    ).toEqual(
-      {
+  'addParam',
+  () => {
+    expect(addParam(
+      'name',
+      add,
+      [ 
+        always(1), always(1) 
+      ]
+    )({ pizza: 'formadgo' }))
+      .toEqual({
         pizza: 'formadgo',
         name: 2
-      }
-    )
+      })
   }
 )
 it(
-  'dayOfWeekToDate', () => {
-    expect(
-      dayOfWeekToDate(
-        {
-          label: 'test',
-          limit: 12,
-          name: 'test',
-          startDate: moment(
-            '20210411', 'YYYYMMDD'
-          ),
-          template: [
-            { label: 'Sunday', abbr: 'Sun', active: true },
-            { label: 'Monday', abbr: 'Mon', active: false },
-            { label: 'Tuesday', abbr: 'Tue', active: true },
-            { label: 'Wednesday', abbr: 'Wed', active: false },
-            { label: 'Thursday', abbr: 'Thu', active: true },
-            { label: 'Friday', abbr: 'Fri', active: false },
-            { label: 'Saturday', abbr: 'Sat', active: false }
-          ]
-        }
-      )
-    ).toEqual(
-      {
+  'dayOfWeekToDate',
+  () => {
+    expect(dayOfWeekToDate({
+      label: 'test',
+      limit: 12,
+      name: 'test',
+      startDate: moment(
+        '20210411',
+        'YYYYMMDD'
+      ),
+      template: [
+        { label: 'Sunday', abbr: 'Sun', active: true },
+        { label: 'Monday', abbr: 'Mon', active: false },
+        { label: 'Tuesday', abbr: 'Tue', active: true },
+        { label: 'Wednesday', abbr: 'Wed', active: false },
+        { label: 'Thursday', abbr: 'Thu', active: true },
+        { label: 'Friday', abbr: 'Fri', active: false },
+        { label: 'Saturday', abbr: 'Sat', active: false }
+      ]
+    }))
+      .toEqual({
         label: 'test',
         limit: 12,
         name: 'test',
@@ -176,7 +226,6 @@ it(
           '04.05.2021',
           '06.05.2021'
         ]
-      }
-    )
+      })
   }
 )

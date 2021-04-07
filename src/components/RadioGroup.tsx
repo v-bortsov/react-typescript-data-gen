@@ -15,19 +15,25 @@ const options = [
 ]
 export const spotGroupType = cond(
   [
-    [is(
-      Number
-    ), always(
-      'limit'
-    )], 
-    [is(
-      String
-    ), always(
-      'column'
-    )], 
-    [isNil, always(
-      'all'
-    )] 
+    [
+      is(
+        Number
+      ), always(
+        'limit'
+      )
+    ], 
+    [
+      is(
+        String
+      ), always(
+        'column'
+      )
+    ], 
+    [
+      isNil, always(
+        'all'
+      )
+    ] 
   ]
 )
 export function RadioGroup () {
@@ -39,7 +45,9 @@ export function RadioGroup () {
   )
   const dispatch = useDispatch()
   
-  const [group, setGroup] = useState(
+  const [
+    group, setGroup
+  ] = useState(
     spotGroupType(
       limit
     )

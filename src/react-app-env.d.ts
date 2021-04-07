@@ -1,14 +1,14 @@
 /// <reference types="react-scripts" />
 type AppDispatch = ThunkDispatch<RootState, any, AnyAction>; 
-  type ColumnType = {
-    name: string
-    label?: string
-    type?: string
-    startDate?: any
-    endDate?: any
-    template: string | string[]
-    days?: number[]
-  }
+type ColumnType = {
+  name: string
+  label?: string
+  type?: string
+  startDate?: any
+  endDate?: any
+  template: string | string[]
+  days?: number[]
+}
 export enum DaysOfWeek {
     Sun = 0,
     Mon = 1,

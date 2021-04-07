@@ -9,11 +9,13 @@ import {
 } from './counterSlice'
 import styles from './Counter.module.css'
 
-export function Counter () {
+export function Counter (): JSX.Element {
   const count = useSelector(selectCount)
 
   const dispatch = useDispatch()
-  const [incrementAmount, setIncrementAmount] = useState('2')
+  const [
+    incrementAmount, setIncrementAmount
+  ] = useState('2')
 
   return (
     <div>
