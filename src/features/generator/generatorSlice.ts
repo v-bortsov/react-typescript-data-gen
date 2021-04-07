@@ -44,7 +44,7 @@ export const generatorSlice = createSlice(
       createColumn: (
         state, action: PayloadAction<ColumnType>
       ) => {
-        state.columns = pipe<any, any, any>(
+        state.columns = pipe<any, any, any, any>(
           ifElse(
             pipe(
               prop(

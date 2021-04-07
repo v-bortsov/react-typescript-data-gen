@@ -13,7 +13,8 @@ const ceilLimit = pipe(
   converge(
     divide,
     [
-      prop('limit'), countDays 
+      prop('limit'),
+      countDays 
     ]
   ),
   Math.ceil
@@ -53,7 +54,8 @@ export const dayToDate = pipe<string[], any, any, any>(
           is(String),
           of
         )
-      ), pipe(
+      ),
+      pipe(
         converge(
           addDaysToDate(
             __,
@@ -84,7 +86,8 @@ export const transformDates = pipe<any, any, any, any, any>(
       converge(
         repeat,
         [
-          prop('days'), ceilLimit 
+          prop('days'),
+          ceilLimit 
         ]
       ),
       flatten
@@ -112,7 +115,8 @@ export const transformDates = pipe<any, any, any, any, any>(
     converge(
       reduce,
       [
-        always(dayToDate), prop('startDate'),
+        always(dayToDate),
+        prop('startDate'),
         prop('template')
       ]
     )
@@ -123,16 +127,22 @@ export const dayOfWeekToDate = pipe<any, any, any, any>(
   addParam(
     'days',
     filterAndPropDayNumber,
-    [ prop('template') ]
+    [
+      prop('template') 
+    ]
   ),
   addParam(
     'startDate',
     (date: any) => date.format('DD.MM.YYYY'),
-    [ prop('startDate') ]
+    [
+      prop('startDate') 
+    ]
   ),
   addParam(
     'template',
     transformDates,
-    [ clone ]
+    [
+      clone 
+    ]
   )
 )

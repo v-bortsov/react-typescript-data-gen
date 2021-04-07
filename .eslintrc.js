@@ -28,11 +28,11 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     // "space-unary-ops"  : 2,
-    // 'function-call-argument-newline': ["error", "always"],
-    // 'function-paren-newline': ["error", { "minItems": 2 }],
-    // 'eslint max-lines-per-function': ["error", {"max": 3, "skipComments": true}],
-    // 'max-nested-callbacks': ["error", 3],
-    // 'implicit-arrow-linebreak': ["error", "beside"],
+    'function-call-argument-newline': ["error", "always"],
+    'function-paren-newline': ["error", { "minItems": 2 }],
+    'eslint max-lines-per-function': ["error", {"max": 3, "skipComments": true}],
+    'max-nested-callbacks': ["error", 3],
+    'implicit-arrow-linebreak': ["error", "beside"],
     // "space-before-function-paren": ["error", {
     //   "anonymous": "always",
     //   "named": "always",
@@ -40,11 +40,12 @@ module.exports = {
     // }],
     'arrow-body-style': ["error", "as-needed"],
     "indent": ["error", 2],
-    'array-bracket-newline': ["error", { "minItems": 2 }],
-    'array-bracket-spacing': ["error", "never", { "singleValue": true }],
-    'camelcase': ["error",{ "properties": "always" }],
+    'array-bracket-newline': ["error", { "minItems": 1 }],
+    'array-element-newline': ["error", { "minItems": 3, "ArrayExpression": "always" }],
+    // 'array-bracket-spacing': ["error", "never", { "singleValue": true }],
+    // 'camelcase': ["error",{ "properties": "always" }],
     'newline-per-chained-call': ["error", { "ignoreChainWithDepth": 1 }],
-    'max-statements-per-line': ["error", { "max": 2 }],
+    // 'max-statements-per-line': ["error", { "max": 2 }],
     'react/display-name': "off"
   },
   settings: {

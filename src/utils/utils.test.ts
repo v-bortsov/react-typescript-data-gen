@@ -25,13 +25,17 @@ it(
   () => {
     expect(findAndMerge(
       [ 
-        { test: 'a' }, { test: 'b' }, { test: 'c' } 
+        { test: 'a' },
+        { test: 'b' },
+        { test: 'c' } 
       ],
       { test: 'c', prop: 'add' },
       'test'
     ))
       .toEqual([ 
-        { test: 'a' }, { test: 'b' }, { test: 'c', prop: 'add' } 
+        { test: 'a' },
+        { test: 'b' },
+        { test: 'c', prop: 'add' } 
       ])
   }
 )
@@ -40,49 +44,79 @@ it(
   () => {
     expect(multipledParts([ 
       [ 
-        'a', 'b', 'c' 
-      ], [ 
-        'd', 'e' 
-      ], [ 
-        'f', 'g' 
+        'a',
+        'b',
+        'c' 
+      ],
+      [ 
+        'd',
+        'e' 
+      ],
+      [ 
+        'f',
+        'g' 
       ] 
     ]))
       .toEqual([
         [ 
-          'a', 'd', 'f' 
+          'a',
+          'd',
+          'f' 
         ],
         [ 
-          'a', 'd', 'g' 
+          'a',
+          'd',
+          'g' 
         ],
         [ 
-          'a', 'e', 'f' 
+          'a',
+          'e',
+          'f' 
         ],
         [ 
-          'a', 'e', 'g' 
+          'a',
+          'e',
+          'g' 
         ],
         [ 
-          'b', 'd', 'f' 
+          'b',
+          'd',
+          'f' 
         ],
         [ 
-          'b', 'd', 'g' 
+          'b',
+          'd',
+          'g' 
         ],
         [ 
-          'b', 'e', 'f' 
+          'b',
+          'e',
+          'f' 
         ],
         [ 
-          'b', 'e', 'g' 
+          'b',
+          'e',
+          'g' 
         ],
         [ 
-          'c', 'd', 'f' 
+          'c',
+          'd',
+          'f' 
         ],
         [ 
-          'c', 'd', 'g' 
+          'c',
+          'd',
+          'g' 
         ],
         [ 
-          'c', 'e', 'f' 
+          'c',
+          'e',
+          'f' 
         ],
         [ 
-          'c', 'e', 'g' 
+          'c',
+          'e',
+          'g' 
         ]
       ])
   }
@@ -97,9 +131,20 @@ it(
     )(initialState.columns))
       .toEqual([ 
         [ 
-          'Socks', 'T-Shirt', 'Coat', 'Jeans', 'Trousers', 'Sneakers' 
-        ], [ 
-          'Baker', 'Health Educator', 'Budget Analyst', 'Design Engineer', 'Designer', 'Backend Developer' 
+          'Socks',
+          'T-Shirt',
+          'Coat',
+          'Jeans',
+          'Trousers',
+          'Sneakers' 
+        ],
+        [ 
+          'Baker',
+          'Health Educator',
+          'Budget Analyst',
+          'Design Engineer',
+          'Designer',
+          'Backend Developer' 
         ] 
       ])
   }
@@ -110,7 +155,15 @@ it(
     expect(sliceAndTranspose(
       initialState.columns,
       [ 
-        'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth' 
+        'first',
+        'second',
+        'third',
+        'fourth',
+        'fifth',
+        'sixth',
+        'seventh',
+        'eighth',
+        'ninth' 
       ],
       propEq(
         'name',
@@ -119,17 +172,28 @@ it(
     ))
       .toEqual([ 
         [ 
-          'first', 'Baker' 
-        ], [ 
-          'second', 'Health Educator' 
-        ], [ 
-          'third', 'Budget Analyst' 
-        ], [ 
-          'fourth', 'Design Engineer' 
-        ], [ 
-          'fifth', 'Designer' 
-        ], [ 
-          'sixth', 'Backend Developer' 
+          'first',
+          'Baker' 
+        ],
+        [ 
+          'second',
+          'Health Educator' 
+        ],
+        [ 
+          'third',
+          'Budget Analyst' 
+        ],
+        [ 
+          'fourth',
+          'Design Engineer' 
+        ],
+        [ 
+          'fifth',
+          'Designer' 
+        ],
+        [ 
+          'sixth',
+          'Backend Developer' 
         ] 
       ])
   }
@@ -140,11 +204,17 @@ it(
     expect(cartesianCondition(
       [ 
         { name: 'x', template: [ 
-          'a', 'b', 'c' 
-        ] }, { name: 'y', template: [ 
-          'd', 'e' 
-        ] }, { name: 'z', template: [ 
-          'f', 'g' 
+          'a',
+          'b',
+          'c' 
+        ] },
+        { name: 'y', template: [ 
+          'd',
+          'e' 
+        ] },
+        { name: 'z', template: [ 
+          'f',
+          'g' 
         ] } 
       ],
       null
@@ -172,7 +242,8 @@ it(
       'name',
       add,
       [ 
-        always(1), always(1) 
+        always(1),
+        always(1) 
       ]
     )({ pizza: 'formadgo' }))
       .toEqual({
