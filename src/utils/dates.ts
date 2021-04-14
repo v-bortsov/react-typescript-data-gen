@@ -1,10 +1,11 @@
 import moment from 'moment'
-import { always, aperture, assoc, chain, clone, concat, converge, curry, divide, filter, flatten, ifElse, is, last, length, map, of, pair, pipe, prop, reduce, repeat, when, __ } from 'ramda'
+import { always, aperture, assoc, chain, clone, concat, converge, curry, divide, filter, flatten, ifElse, is, last, length, map, of, pair, pipe, prop, reduce, repeat, tap, when, __ } from 'ramda'
 import { DaysOfWeek, Interval } from '../react-app-env.d'
 import { addParam, enumToObject } from './popular'
 
 // const opt = { days: [1, 2, 3], lengthDays: 7, limit: 10, mode: 'week|range', startDate: '', endDate: '' }
 const interval = 7
+
 const countDays = pipe<any, number[], number>(
   prop('days'),
   length
@@ -12,10 +13,7 @@ const countDays = pipe<any, number[], number>(
 const ceilLimit = pipe(
   converge(
     divide,
-    [
-      prop('limit'),
-      countDays 
-    ]
+    [prop('limit'), countDays]
   ),
   Math.ceil
 )
@@ -49,13 +47,12 @@ export const dayToDate = pipe<string[], any, any, any>(
     concat,
     [
       pipe(
-        prop<any>(0), 
+        prop<any>(0),
         when(
           is(String),
           of
         )
-      ),
-      pipe(
+      ), pipe(
         converge(
           addDaysToDate(
             __,
@@ -70,34 +67,29 @@ export const dayToDate = pipe<string[], any, any, any>(
                 clone,
                 last
               )
-            ),
-            prop<any>(1) 
+            ), prop<any>(1)
           ]
         ),
         of
-      ) 
+      )
     ]
   )
 )
 export const transformDates = pipe<any, any, any, any, any>(
   chain(
-    assoc('template'),
+    assoc('collect'),
     pipe(
       converge(
         repeat,
-        [
-          prop('days'),
-          ceilLimit 
-        ]
+        [prop('days'), ceilLimit]
       ),
       flatten
     )
   ),
-  // transfer from dayOfWeek to addDay
   chain(
-    assoc('template'),
+    assoc('collect'),
     pipe<any, any, any, any>(
-      prop('template'),
+      prop('collect'),
       aperture(2),
       reduce(
         (
@@ -116,33 +108,22 @@ export const transformDates = pipe<any, any, any, any, any>(
       reduce,
       [
         always(dayToDate),
-        prop('startDate'),
-        prop('template')
+        prop('startDay'),
+        prop('collect')
       ]
     )
   ),
   prop('dates')
 )// (opt)
-export const dayOfWeekToDate = pipe<any, any, any, any>(
+export const dayOfWeekToDate = pipe<any, any, any>(
   addParam(
     'days',
     filterAndPropDayNumber,
-    [
-      prop('template') 
-    ]
+    [prop('days')]
   ),
   addParam(
-    'startDate',
-    (date: any) => date.format('DD.MM.YYYY'),
-    [
-      prop('startDate') 
-    ]
-  ),
-  addParam(
-    'template',
+    'collect',
     transformDates,
-    [
-      clone 
-    ]
+    [clone]
   )
 )
