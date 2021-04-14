@@ -29,33 +29,25 @@ global.matchMedia = global.matchMedia || function () {
 //   )
 // })
 it(
-  'renders learn react link', () => {
-    const { getByText } = render(
-      <Provider store={ store }>
-        <App />
-      </Provider>
-    )
+  'renders learn react link',
+  () => {
+    const { getByText } = render(<Provider store={ store }>
+      <App />
+    </Provider>)
   
-    expect(
-      getByText(
-        /Add Column/i
-      )
-    )
+    expect(getByText(/Add Column/i))
       .toBeInTheDocument()
   }
 )
 it(
-  'renders correctly', () => {
+  'renders correctly',
+  () => {
     const tree = renderer
-      .create(
-        <Provider store={ store }>
-          <RadioGroup />
-        </Provider>
-      )
+      .create(<Provider store={ store }>
+        <RadioGroup />
+      </Provider>)
       .toJSON()
-    expect(
-      tree
-    )
+    expect(tree)
       .toMatchSnapshot()
   }
 )

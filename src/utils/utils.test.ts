@@ -24,99 +24,93 @@ it(
   'findAndMerge',
   () => {
     expect(findAndMerge(
-      [ 
+      [
         { test: 'a' },
         { test: 'b' },
-        { test: 'c' } 
+        { test: 'c' }
       ],
       { test: 'c', prop: 'add' },
       'test'
     ))
-      .toEqual([ 
+      .toEqual([
         { test: 'a' },
         { test: 'b' },
-        { test: 'c', prop: 'add' } 
+        { test: 'c', prop: 'add' }
       ])
   }
 )
 it(
   'multipledParts',
   () => {
-    expect(multipledParts([ 
-      [ 
+    expect(multipledParts([
+      [
         'a',
         'b',
-        'c' 
+        'c'
       ],
-      [ 
-        'd',
-        'e' 
-      ],
-      [ 
-        'f',
-        'g' 
-      ] 
+      ['d', 'e'],
+      ['f', 'g']
     ]))
       .toEqual([
-        [ 
+        [
           'a',
           'd',
-          'f' 
+          'f'
         ],
-        [ 
+        [
           'a',
           'd',
-          'g' 
+          'g'
         ],
-        [ 
+        [
           'a',
           'e',
-          'f' 
+          'f'
         ],
-        [ 
+        [
           'a',
           'e',
-          'g' 
+          'g'
         ],
-        [ 
+        [
           'b',
           'd',
-          'f' 
+          'f'
         ],
-        [ 
+        [
           'b',
           'd',
-          'g' 
+          'g'
         ],
-        [ 
+        [
           'b',
           'e',
-          'f' 
+          'f'
         ],
-        [ 
+        [
           'b',
           'e',
-          'g' 
+          'g'
         ],
-        [ 
+        [
           'c',
           'd',
-          'f' 
+          'f'
         ],
-        [ 
+        [
           'c',
           'd',
-          'g' 
+          'g'
         ],
-        [ 
+        [
           'c',
           'e',
-          'f' 
+          'f'
         ],
-        [ 
+        [
           'c',
           'e',
-          'g' 
+          'g'
         ]
       ])
   }
@@ -127,9 +121,9 @@ it(
     expect(propFilterAndPluck(
       'name',
       'city',
-      'template'
+      'collect'
     )(initialState.columns))
-      .toEqual([ 
+      .toEqual([
         [ 
           'Socks',
           'T-Shirt',
@@ -137,15 +131,14 @@ it(
           'Jeans',
           'Trousers',
           'Sneakers' 
-        ],
-        [ 
+        ], [ 
           'Baker',
           'Health Educator',
           'Budget Analyst',
           'Design Engineer',
           'Designer',
           'Backend Developer' 
-        ] 
+        ]
       ])
   }
 )
@@ -171,30 +164,12 @@ it(
       )
     ))
       .toEqual([ 
-        [ 
-          'first',
-          'Baker' 
-        ],
-        [ 
-          'second',
-          'Health Educator' 
-        ],
-        [ 
-          'third',
-          'Budget Analyst' 
-        ],
-        [ 
-          'fourth',
-          'Design Engineer' 
-        ],
-        [ 
-          'fifth',
-          'Designer' 
-        ],
-        [ 
-          'sixth',
-          'Backend Developer' 
-        ] 
+        ['first', 'Baker'],
+        ['second', 'Health Educator'],
+        ['third', 'Budget Analyst'],
+        ['fourth', 'Design Engineer'],
+        ['fifth', 'Designer'],
+        ['sixth', 'Backend Developer'] 
       ])
   }
 )
@@ -202,20 +177,14 @@ it(
   'cartesianCondition',
   () => {
     expect(cartesianCondition(
-      [ 
-        { name: 'x', template: [ 
+      [
+        { name: 'x', collect: [
           'a',
           'b',
-          'c' 
+          'c'
         ] },
-        { name: 'y', template: [ 
-          'd',
-          'e' 
-        ] },
-        { name: 'z', template: [ 
-          'f',
-          'g' 
-        ] } 
+        { name: 'y', collect: ['d', 'e'] },
+        { name: 'z', collect: ['f', 'g'] }
       ],
       null
     ))
@@ -241,10 +210,7 @@ it(
     expect(addParam(
       'name',
       add,
-      [ 
-        always(1),
-        always(1) 
-      ]
+      [always(1), always(1)]
     )({ pizza: 'formadgo' }))
       .toEqual({
         pizza: 'formadgo',
@@ -256,14 +222,9 @@ it(
   'dayOfWeekToDate',
   () => {
     expect(dayOfWeekToDate({
-      label: 'test',
       limit: 12,
-      name: 'test',
-      startDate: moment(
-        '20210411',
-        'YYYYMMDD'
-      ),
-      template: [
+      startDate: '11.04.2021',
+      days: [
         { label: 'Sunday', abbr: 'Sun', active: true },
         { label: 'Monday', abbr: 'Mon', active: false },
         { label: 'Tuesday', abbr: 'Tue', active: true },
@@ -274,16 +235,14 @@ it(
       ]
     }))
       .toEqual({
-        label: 'test',
         limit: 12,
-        name: 'test',
         startDate: '11.04.2021',
         days: [
           0,
           2,
           4
         ],
-        template: [
+        collect: [
           '11.04.2021',
           '13.04.2021',
           '15.04.2021',

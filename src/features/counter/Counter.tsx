@@ -13,9 +13,7 @@ export function Counter (): JSX.Element {
   const count = useSelector(selectCount)
 
   const dispatch = useDispatch()
-  const [
-    incrementAmount, setIncrementAmount
-  ] = useState('2')
+  const [incrementAmount, setIncrementAmount] = useState('2')
 
   return (
     <div>
@@ -45,8 +43,7 @@ export function Counter (): JSX.Element {
         />
         <button
           className={ styles.button }
-          onClick={ () =>
-            dispatch(incrementByAmount(Number(incrementAmount) || 0))
+          onClick={ () => dispatch(incrementByAmount(Number(incrementAmount) || 0))
           }
         >
           Add Amount

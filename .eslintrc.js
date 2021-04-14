@@ -5,12 +5,13 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  'plugins': ['react'],
+  'plugins': ['react', 'ramda'],
   extends: [
     // 'airbnb-base',
     "eslint:recommended",
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:ramda/recommended'
   ],
   parserOptions: {
     jsx: "react",
@@ -27,30 +28,56 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
-    // "space-unary-ops"  : 2,
-    'function-call-argument-newline': ["error", "always"],
-    'function-paren-newline': ["error", { "minItems": 2 }],
-    'eslint max-lines-per-function': ["error", {"max": 3, "skipComments": true}],
-    'max-nested-callbacks': ["error", 3],
-    'implicit-arrow-linebreak': ["error", "beside"],
-    // "space-before-function-paren": ["error", {
-    //   "anonymous": "always",
-    //   "named": "always",
-    //   "asyncArrow": "always"
-    // }],
+    '@typescript-eslint/no-var-requires': 'off',
+    'react/display-name': "off",
+    '@typescript-eslint/no-unused-vars-experimental': ["warn", { ignoreArgsIfArgsAfterAreUsed: false }],
     'arrow-body-style': ["error", "as-needed"],
-    "indent": ["error", 2],
-    'array-bracket-newline': ["error", { "minItems": 1 }],
-    'array-element-newline': ["error", { "minItems": 3, "ArrayExpression": "always" }],
-    // 'array-bracket-spacing': ["error", "never", { "singleValue": true }],
-    // 'camelcase': ["error",{ "properties": "always" }],
+    'max-statements-per-line': ["error", { "max": 2 }],
     'newline-per-chained-call': ["error", { "ignoreChainWithDepth": 1 }],
-    // 'max-statements-per-line': ["error", { "max": 2 }],
-    'react/display-name': "off"
+    "indent": ["error", 2, { "ImportDeclaration": 1, "ArrayExpression": 1, "ObjectExpression": 1 }],
+    'implicit-arrow-linebreak': ["error", "beside"],
+    "ramda/cond-simplification": "off",
+    // "space-unary-ops"  : 2,
+    // 'max-lines-per-function': ["error", {"max": 3, "skipComments": true}],
+    // 'max-lines-per-function': ["error", 20],
+    // 'max-nested-callbacks': ["error", 3],
+    // "space-before-function-paren": ["error", {
+      //   "anonymous": "always",
+      //   "named": "always",
+      //   "asyncArrow": "always"
+      // }],
+      // 'array-bracket-spacing': ["error", "never", { "singleValue": true }],
+      // 'camelcase': ["error",{ "properties": "always" }],
+    'function-paren-newline': ["error", { "minItems": 2}],
+    'function-call-argument-newline': ["error", "always"],
+    'array-bracket-newline': ["error",  { "multiline": true }],
+    'array-element-newline': ["error", {"ArrayExpression": { "minItems": 3 },"ArrayPattern": { "minItems": 3 }}],
   },
   settings: {
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts']
-    }
+    },
+    "react": {
+      "createClass": "createReactClass", // Regex for Component Factory to use,
+                                         // default to "createReactClass"
+      "pragma": "React",  // Pragma to use, default to "React"
+      "fragment": "Fragment",  // Fragment to use (may be a property of <pragma>), default to "Fragment"
+      "version": "detect", // React version. "detect" automatically picks the version you have installed.
+                           // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+                           // default to latest and warns if missing
+                           // It will default to "detect" in the future
+      "flowVersion": "0.53" // Flow version
+    },
+    "propWrapperFunctions": [
+        // The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.
+        "forbidExtraProps",
+        {"property": "freeze", "object": "Object"},
+        {"property": "myFavoriteWrapper"}
+    ],
+    "linkComponents": [
+      // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
+      "Hyperlink",
+      {"name": "Link", "linkAttribute": "to"}
+    ]
   }
 }

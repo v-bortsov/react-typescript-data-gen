@@ -1,8 +1,9 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
-import { append, clone, filter, ifElse, is, not, pipe, Placeholder, prop, propEq, split, __ } from 'ramda'
+import { always, append, applySpec, clone, complement, cond, converge, filter, ifElse, is, map, mergeRight, not, objOf, omit, pick, pipe, Placeholder, prop, propEq, reject, split, tap, __ } from 'ramda'
 import { RootState } from '../../app/store'
-import { ColumnType, GeneratorState, TypeLimiting } from '../../react-app-env.d'
+import { ColumnType, DaysOfWeek, GeneratorState, TypeLimiting } from '../../react-app-env.d'
 import { dayOfWeekToDate } from '../../utils/dates'
+import { random } from '../../utils/numbers'
 import { addParam, cartesianCondition, findAndMerge } from '../../utils/popular'
 
 export const initialState: GeneratorState = {
@@ -10,108 +11,140 @@ export const initialState: GeneratorState = {
     {
       name: 'city',
       label: 'City',
-      type: 'sequence',
-      template: [
-        'Moscow', 'London', 'Jerusalem'
+      type: 'custom',
+      collect: [
+        'Moscow',
+        'London',
+        'Jerusalem'
       ]
     },
     {
       name: 'product',
       label: 'Product',
-      type: 'sequence',
-      template: [
-        'Socks', 'T-Shirt', 'Coat', 'Jeans', 'Trousers', 'Sneakers'
+      type: 'custom',
+      collect: [
+        'Socks',
+        'T-Shirt',
+        'Coat',
+        'Jeans',
+        'Trousers',
+        'Sneakers'
       ]
     },
     {
       name: 'Skill',
       label: 'Job Skill',
-      type: 'sequence',
-      template: [
-        'Baker', 'Health Educator', 'Budget Analyst', 'Design Engineer', 'Designer', 'Backend Developer'
+      type: 'custom',
+      collect: [
+        'Baker',
+        'Health Educator',
+        'Budget Analyst',
+        'Design Engineer',
+        'Designer',
+        'Backend Developer'
       ]
     }
   ],
   rows: [],
   limiting: null
 }
+const customType = addParam(
+  'collect',
+  pipe(
+    prop<any, any>('collect'),
+    split('\n')
+  ),
+  [clone]
+)
 
-export const generatorSlice = createSlice(
-  {
-    name: 'generator',
-    initialState,
-    reducers: {
-      createColumn: (
-        state, action: PayloadAction<ColumnType>
-      ) => {
-        state.columns = pipe<any, any, any, any>(
-          ifElse(
-            pipe(
-              prop(
-                'template'
-              ),
-              is(
-                String
-              )
-            ),
-            addParam(
-              'template',
-              pipe(
-                prop<any, any>(
-                  'template'
-                ),
-                split(
-                  '\n'
-                )
-              ),
-              [ clone ]
-            ),
-            dayOfWeekToDate
-          ),
-          append<any, any, any[]>(
-            __, state.columns
+const wrapLogic = (func: any)=> converge(
+  mergeRight,
+  [
+    clone, pipe(
+      prop('options'),
+      func,
+      converge(
+        mergeRight,
+        [
+          pick(['collect']), pipe(
+            omit(['collect']),
+            objOf('options')
           )
-        )(
-          action.payload
+        ]
+      )
+    )
+  ]
+)
+const bindTypeToHandler = cond([
+  [
+    propEq(
+      'type',
+      'dates'
+    ), wrapLogic(dayOfWeekToDate)
+  ], [
+    propEq(
+      'type',
+      'integer'
+    ), wrapLogic(random)
+  ]
+])
+export const generatorSlice = createSlice({
+  name: 'generator',
+  initialState,
+  reducers: {
+    createColumn: (
+      state, action: PayloadAction<ColumnType>
+    ) => {
+      state.columns = pipe<any, any, any>(
+        ifElse(
+          propEq(
+            'type',
+            'custom'
+          ),
+          customType,
+          bindTypeToHandler
+        ),
+        append(
+          __,
+          state.columns
         )
-      },
-      removeColumn: (
-        state, action: PayloadAction<ColumnType>
-      ) => {
-        const name = action.payload.name
-
-        state.columns = filter(
-          pipe(
-            propEq(
-              'name', name
-            ), not
-          ), state.columns
-        )
-      },
-      setLimit: (
-        state, action: PayloadAction<TypeLimiting>
-      ) => {
-        state.limiting = action.payload
-      },
-      run: state => {
-        const { columns, limiting } = current(
-          state
-        )
-        
-        state.rows = cartesianCondition(
-          columns, limiting
-        )
-      },
-      changeColumn: (
-        state: any, action: PayloadAction<ColumnType>
-      ) => {
-        state.columns = findAndMerge(
-          state.columns, action.payload, 'name'
-        )
-      }
+      )(action.payload)
+    },
+    removeColumn: (
+      state, action: PayloadAction<ColumnType>
+    ) => {
+      const name = action.payload.name
+      state.columns = reject(
+        propEq(
+          'name',
+          name
+        ),
+        state.columns
+      )
+    },
+    setLimit: (
+      state, action: PayloadAction<TypeLimiting>
+    ) => {
+      state.limiting = action.payload
+    },
+    run: state => {
+      const { columns, limiting } = current(state)
+      state.rows = cartesianCondition(
+        columns,
+        limiting
+      )
+    },
+    changeColumn: (
+      state: any, action: PayloadAction<ColumnType>
+    ) => {
+      state.columns = findAndMerge(
+        state.columns,
+        action.payload,
+        'name'
+      )
     }
   }
-)
+})
 
 export const { createColumn, removeColumn, changeColumn, run, setLimit } = generatorSlice.actions
 
@@ -128,14 +161,8 @@ export const { createColumn, removeColumn, changeColumn, run, setLimit } = gener
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.countevalue)`
-export const selectColumns = (
-  state: RootState
-) => state.generator.columns
-export const selectRows = (
-  state: RootState
-) => state.generator.rows
-export const selectLimiting = (
-  state: RootState
-) => state.generator.limiting
+export const selectColumns = (state: RootState) => state.generator.columns
+export const selectRows = (state: RootState) => state.generator.rows
+export const selectLimiting = (state: RootState) => state.generator.limiting
 
 export default generatorSlice.reducer

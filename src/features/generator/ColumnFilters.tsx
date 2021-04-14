@@ -21,13 +21,13 @@ const filterDropdown = (
     <TextArea
       onChange={ (e) => dispatch(changeColumn({
         ...passObj,
-        template: e.target.value.split('\n',),
+        collect: e.target.value.split('\n',),
       })) }
       placeholder={ 'Pass Keywords ' }
       ref={ ref }
       rows={ 4 }
       style={ { width: 188, marginBottom: 8, display: 'block' } }
-      value={ obj.template.join('\n',) }
+      value={ obj.collect.join('\n',) }
     />
     <Button
       danger
@@ -77,15 +77,21 @@ const columnsFrontier = (
 export const transformColumns = (
   ref: React.Ref<TextAreaRef>, dispatch: AppDispatch,
 ): any => map(pipe<any, any, any, any>(
-  props([ 
-    'label', 'name', 'label', 'template' 
+  props([
+    'label',
+    'name',
+    'label',
+    'collect'
   ]),
-  zipObj([ 
-    'title', 'dataIndex', 'key', 'template' 
+  zipObj([
+    'title',
+    'dataIndex',
+    'key',
+    'collect'
   ]),
   (obj: ColumnType) => {
     const omitColumns = omit(
-      [ 'template' ],
+      ['collect'],
       obj,
     );
     const passObj = {
