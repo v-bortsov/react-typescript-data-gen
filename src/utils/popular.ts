@@ -1,5 +1,5 @@
-import { always, append, assoc, chain, clone, converge, curry, filter, flatten, is, keys, length, map, mergeRight, of, path, pipe, pluck, prop, propEq, reduce, reject, slice, splitAt, transpose, values, when, xprod, zipObj, __ } from 'ramda';
-import { ColumnType, ObjectLiteral, TypeLimiting } from '../react-app-env';
+import { always, append, assoc, chain, clone, converge, curry, filter, flatten, is, keys, length, map, mergeRight, objOf, of, omit, path, pick, pipe, pluck, prop, propEq, reduce, reject, slice, splitAt, transpose, values, when, xprod, zipObj, __ } from 'ramda';
+import { ColumnType, ObjectLiteral, Option, OptionDate, OptionNumber, TypeLimiting } from '../react-app-env';
 // import {Maybe} from 'ramda-fantasy'
 const RF = require('ramda-fantasy'),
   Maybe = RF.Maybe,
@@ -10,8 +10,9 @@ const RF = require('ramda-fantasy'),
 // lenFunc("asdfasf")
 export const multipledParts: any = (parts: any[][]) => parts.reduce(<any>xprod)
   .map(<any>flatten)
+  
 export const sliceAndTranspose = curry((
-  columns: ColumnType[], multipled: any[], equalsName: any
+  columns: ColumnType<OptionNumber | OptionDate | Option>[], multipled: any[], equalsName: any
 ) => pipe(
   filter<any, any>(equalsName),
   path([0, 'collect']),
@@ -31,7 +32,6 @@ export const sliceAndTranspose = curry((
 )(columns))
 /**
  *   CartesianProduct Non using Ramda
- * 
   const result = parts.reduce((
     a, b
   ) => a.reduce(
@@ -41,9 +41,6 @@ export const sliceAndTranspose = curry((
       v, w
     ))), []
   ))
- * @param columns 
- * @param limiting 
- * @returns 
  */
 // TODO: REDUCE ~> one cycle
 export const propFilterAndPluck = (
@@ -56,7 +53,7 @@ export const propFilterAndPluck = (
   pluck(propPluck)
 )
 export const cartesianCondition: any = (
-  columns: ColumnType[], limiting: TypeLimiting
+  columns: ColumnType<OptionNumber | OptionDate | Option>[], limiting: TypeLimiting
 ) => pipe<any, any, any, any, any>(
   propFilterAndPluck(
     'name',
@@ -144,4 +141,15 @@ export const addParam = curry((
     func,
     args
   )
+))
+export const mergeAndRestruct = curry((
+  columns: string[], wrapper: string
+)=>converge(
+  mergeRight,
+  [
+    pick(columns), pipe(
+      omit(columns),
+      objOf(wrapper)
+    )
+  ]
 ))

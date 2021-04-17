@@ -1,9 +1,10 @@
 import { Button, Space } from 'antd'
-import { is, isNil, lensProp, not, over, pipe, __ } from 'ramda'
+import { lensProp, not, over, pipe, __ } from 'ramda'
 import React from 'react'
+import { AppDispatch, Day } from '../react-app-env'
 import { findAndMerge } from '../utils/popular'
 export const setDay = (
-  day: any, days: any, setDays: any
+  day: Day, days: Day[], setDays: AppDispatch
 ): any => pipe(
   over<any,any>(
     lensProp('active'),
@@ -18,15 +19,14 @@ export const setDay = (
 )(day)
 
 type WeekDays = {
-  value: any[],
+  value: Day[],
   onChange: any
 }
 export const WeekDays = ({ value, onChange }: WeekDays): JSX.Element => (
   <Space>
     { 
-     
       value.map((
-        day: any, idx: number
+        day: Day, idx: number
       ) => <Button
         key={ idx }
         onClick={ () => setDay(

@@ -83,13 +83,7 @@ export const transformDates = pipe<any, any, any, any, any>(
         repeat,
         [prop('days'), ceilLimit]
       ),
-      flatten
-    )
-  ),
-  chain(
-    assoc('collect'),
-    pipe<any, any, any, any>(
-      prop('collect'),
+      flatten,
       aperture(2),
       reduce(
         (

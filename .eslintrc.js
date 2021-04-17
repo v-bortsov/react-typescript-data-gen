@@ -37,6 +37,7 @@ module.exports = {
     "indent": ["error", 2, { "ImportDeclaration": 1, "ArrayExpression": 1, "ObjectExpression": 1 }],
     'implicit-arrow-linebreak': ["error", "beside"],
     "ramda/cond-simplification": "off",
+    quotes: ['warn', 'single', { avoidEscape: true }],
     // "space-unary-ops"  : 2,
     // 'max-lines-per-function': ["error", {"max": 3, "skipComments": true}],
     // 'max-lines-per-function': ["error", 20],

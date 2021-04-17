@@ -1,4 +1,4 @@
-import { assoc, chain, times } from "ramda"
+import { assoc, chain, times } from 'ramda'
 
 export const random = chain(
   assoc('collect'),

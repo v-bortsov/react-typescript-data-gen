@@ -1,10 +1,10 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
-import { always, append, applySpec, clone, complement, cond, converge, filter, ifElse, is, map, mergeRight, not, objOf, omit, pick, pipe, Placeholder, prop, propEq, reject, split, tap, __ } from 'ramda'
+import { append, clone, cond, converge, ifElse, mergeRight, objOf, omit, pick, pipe, prop, propEq, reject, split, __ } from 'ramda'
 import { RootState } from '../../app/store'
-import { ColumnType, DaysOfWeek, GeneratorState, TypeLimiting } from '../../react-app-env.d'
+import { ColumnType, GeneratorState, TypeLimiting } from '../../react-app-env.d'
 import { dayOfWeekToDate } from '../../utils/dates'
 import { random } from '../../utils/numbers'
-import { addParam, cartesianCondition, findAndMerge } from '../../utils/popular'
+import { addParam, cartesianCondition, findAndMerge, mergeAndRestruct } from '../../utils/popular'
 
 export const initialState: GeneratorState = {
   columns: [
@@ -63,14 +63,9 @@ const wrapLogic = (func: any)=> converge(
     clone, pipe(
       prop('options'),
       func,
-      converge(
-        mergeRight,
-        [
-          pick(['collect']), pipe(
-            omit(['collect']),
-            objOf('options')
-          )
-        ]
+      mergeAndRestruct(
+        ['collect'],
+        'options'
       )
     )
   ]

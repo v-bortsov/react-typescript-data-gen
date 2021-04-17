@@ -15,7 +15,7 @@ import {
 
 const { TextArea } = Input;
 const filterDropdown = (
-  passObj: ColumnType, obj: ColumnType, ref: React.Ref<TextAreaRef>, dispatch: AppDispatch,
+  passObj: ColumnType<any>, obj: ColumnType<any>, ref: React.Ref<TextAreaRef>, dispatch: AppDispatch,
 ): JSX.Element => (
   <div style={ { padding: 8 } }>
     <TextArea
@@ -53,7 +53,7 @@ const filterDropdown = (
   </div>
 );
 const columnsFrontier = (
-  omitColumns: any, passObj: ColumnType, obj: ColumnType, ref: React.Ref<TextAreaRef>, dispatch: AppDispatch,
+  omitColumns: any, passObj: ColumnType<any>, obj: ColumnType<any>, ref: React.Ref<TextAreaRef>, dispatch: AppDispatch,
 ) => ({
   ...omitColumns,
   filterDropdown: () => filterDropdown(
@@ -89,7 +89,7 @@ export const transformColumns = (
     'key',
     'collect'
   ]),
-  (obj: ColumnType) => {
+  (obj: ColumnType<any>) => {
     const omitColumns = omit(
       ['collect'],
       obj,

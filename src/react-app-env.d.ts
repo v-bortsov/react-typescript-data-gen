@@ -33,10 +33,6 @@ interface ObjectLiteral {
   [key: string]: any
 }
 
-type Range<T> = [T, T]
-type RangeNumber = Range<number>
-type RangeDate = Range<Date>
-
 function rangeNumber(range: Range<number>): number[]
 
 declare function nestedFunc(arr: number): string[];
@@ -69,4 +65,24 @@ interface IDateOption {
   mode: 'week'|'range'
   startDate: any
   endDate: string
+}
+
+type Field = {
+  name: string
+  label: string
+  component: string
+  value: any
+  defaultValue: any
+  rules: any[]
+  onChange?: any
+}
+
+type FormField = {
+  fields: Field[]
+}
+
+type Day = {
+  label: string
+  abbr: string
+  active: boolean
 }
