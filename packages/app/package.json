@@ -1,11 +1,10 @@
 {
   "name": "react-typescript-data-gen",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "./src/index.ts",
   "license": "MIT",
   "dependencies": {
-    "ramda-combo": "^1.0.0",
     "@reduxjs/toolkit": "^1.2.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -22,6 +21,7 @@
     "eslint-plugin-ramda": "^2.5.1",
     "moment": "^2.29.1",
     "ramda": "^0.27.1",
+    "ramda-combo": "^0.0.1",
     "ramda-fantasy": "^0.8.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
