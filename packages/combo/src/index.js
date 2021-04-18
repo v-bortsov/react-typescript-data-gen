@@ -1,9 +1,10 @@
+"use strict";
 // import { xprod, flatten } from 'ramda';
 // // example
 // export const multipledParts = (parts: any[][]): any[] => parts.reduce(xprod)
 //   .map(flatten)
 // // module.export = {a: 'lehaem'}
-
-export const add = (x: number, y:number):number => {
-  return x + y;
-}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.add = function (x, y) {
+    return x + y;
+};
