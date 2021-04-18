@@ -1,0 +1,23 @@
+{
+  "name": "ramda-combo",
+  "version": "0.0.3",
+  "description": "",
+  "type": "module",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "files": [
+    "lib/"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ramda": "^0.27.1"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.27.34",
+    "typescript": "~3.8.2"
+  },
+  "scripts": {
+    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublish": "npm run tsc"
+  }
+}
